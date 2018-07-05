@@ -17,7 +17,7 @@ public class Board implements Serializable {
         return "Board [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate + "]";
     }
     
-    public int getNo() {
+    public int getNo() {  
         return no;
     }
     public void setNo(int no) {
