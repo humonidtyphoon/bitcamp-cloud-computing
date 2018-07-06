@@ -1,31 +1,31 @@
-package bitcamp.pms.servlet.member;
+package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.pms.dao.MemberDao;
+import bitcamp.pms.dao.BoardDao;
+import bitcamp.pms.domain.Board;
 
-
-@SuppressWarnings("serial")
-@WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/board/update")
+public class BoardUpdateServlet extends HttpServlet {
     
     @Override
-    protected void doGet(
+    protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        String id = request.getParameter("id");
+        request.setCharacterEncoding("UTF-8");
+        
+        Board board = new Board();
+        board.setNo(Integer.parseInt(request.getParameter("no")));
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -35,29 +35,23 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        out.println("<title>게시물 삭제</title>");
+        out.println("<title>게시물 변경</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>게시물 삭제 결과</h1>");
+        out.println("<h1>게시물 변경 결과</h1>");
         
         try {
-            
-            MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
-            int count = memberDao.delete(id);
-                
-                
+            int count = BoardDao.update(board);
             if (count == 0) {
-                out.println("해당 아이디의 회원이 없습니다.");
+                out.println("<p>해당 게시물이 존재하지 않습니다.</p>");
             } else {
-                out.println("삭제하였습니다.");
+                out.println("<p>변경하였습니다.</p>");
             }
-            
         } catch (Exception e) {
-            out.println("<p>삭제 실패!</p>");
+            out.println("<p>변경 실패!</p>");
             e.printStackTrace(out);
         }
         out.println("</body>");
         out.println("</html>");
     }
-
 }

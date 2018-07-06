@@ -26,6 +26,7 @@ public class MemberListServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         out.println("<!DOCTYPE html>");
+        
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");

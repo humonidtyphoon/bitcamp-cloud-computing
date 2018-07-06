@@ -44,12 +44,11 @@ public class MemberAddServlet extends HttpServlet {
         out.println("<h1>회원 등록 결과</h1>");
         
         try {
-            
             Class.forName("com.mysql.jdbc.Driver");
             try (
-                    Connection con = DriverManager.getConnection(
-                            "jdbc:mysql://localhost:3306/studydb",
-                            "study", "1111");
+                Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://13.125.9.121:3306/studydb",
+                    "study", "1111");
                 PreparedStatement stmt = con.prepareStatement(
                     "insert into pms2_member(mid,email,pwd) values(?,?,?)");) {
                 

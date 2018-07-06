@@ -1,57 +1,54 @@
-package bitcamp.pms.servlet.member;
+package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.Date;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.pms.dao.MemberDao;
-import bitcamp.pms.domain.Member;
+import bitcamp.pms.dao.BoardDao;
+import bitcamp.pms.domain.Board;
 
-
-@SuppressWarnings("serial")
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
-    
+@WebServlet("/board/add")
+public class BoardAddServlet extends HttpServlet {
     @Override
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        // 클라이언트가 보낸 데이터가 어떤 문자표를 사용해서 작성한지 알아야만 
+        // String 객체(UTF-16)로 값을 꺼낼 수 있다. 
         request.setCharacterEncoding("UTF-8");
-        Member member = new Member();
-        member.setId(request.getParameter("id"));
-        member.setEmail(request.getParameter("email"));
-        member.setPassword(request.getParameter("password"));
-
-        System.out.println("새로 넣으러 왔다");
-
+        
+        Board board = new Board();
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
+        board.setCreatedDate(new Date(System.currentTimeMillis()));
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
         out.println("<!DOCTYPE html>");
         out.println("<html>");
-        out.println("<head>");  
+        out.println("<head>");
         out.println("<meta charset='UTF-8'>");
+        
+        // 지정된 시간이 경과하면 특정 서블릿을 요청하도록 태그를 삽입!
+        // => 웹브라우저는 meta 태그의 내용대로 동작한다.
+        //    content='경과시간(초);url=요청할URL'
+        //
         out.println("<meta http-equiv='Refresh' content='1;url=list'>");
         
-        out.println("<title>회원 등록</title>");
+        out.println("<title>게시물 등록</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>회원 등록 결과</h1>");
-        
+        out.println("<h1>게시물 등록 결과</h1>");
         try {
-            MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
-            memberDao.insert(member);   //add 메소드 호출 
- 
+            BoardDao.insert(board);
             out.println("<p>등록 성공!</p>");
         } catch (Exception e) {
             out.println("<p>등록 실패!</p>");
@@ -60,6 +57,4 @@ public class MemberAddServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
-
-    
 }

@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +18,7 @@ import bitcamp.pms.dao.MemberDao;
 @SuppressWarnings("serial")
 @WebServlet("/member/delete")
 public class MemberDeleteServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(
             HttpServletRequest request, 
@@ -41,16 +40,15 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("<h1>게시물 삭제 결과</h1>");
         
         try {
-            
             MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
             int count = memberDao.delete(id);
-                
-                
+            
             if (count == 0) {
-                out.println("해당 아이디의 회원이 없습니다.");
+                out.println("<p>해당 회원이 없습니다.</p>");
+                
             } else {
-                out.println("삭제하였습니다.");
-            }
+                out.println("<p>삭제하였습니다.</p>");
+                }
             
         } catch (Exception e) {
             out.println("<p>삭제 실패!</p>");
@@ -59,5 +57,6 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
-
+ 
+    
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
 
 @SuppressWarnings("serial")
@@ -42,7 +43,10 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<form action='update' method='post'>");
         
         try {
-            Member member = selectOne(id);
+            
+            MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
+                    
+            Member member = memberDao.selectOne(id);
                 
             if (member == null) {
                 out.println("<p>유효하지 않은 멤버 아이디입니다.</p>");
@@ -76,30 +80,7 @@ public class MemberViewServlet extends HttpServlet {
             }
     
     
-        private Member selectOne(String id) throws Exception{
-            try (
-                    Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://13.125.9.121:3306/studydb",
-                        "study", "1111");
-                    PreparedStatement stmt = con.prepareStatement(
-                        "select mid,email from pms2_member where mid=?");) {
-                    
-                    stmt.setString(1, id);
-                    
-                    try (ResultSet rs = stmt.executeQuery();) {
-                            if (!rs.next()) 
-                                return null;
-                            
-                            Member member = new Member();
-                            member.setId(id);
-                            member.setEmail(rs.getString("email"));
-                            return member;
-                        }
-                        
-            }
-            
-            
-        }
+
         
 }
       
