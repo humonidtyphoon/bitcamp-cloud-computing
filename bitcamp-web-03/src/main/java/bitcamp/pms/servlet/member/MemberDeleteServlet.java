@@ -38,25 +38,14 @@ public class MemberDeleteServlet extends HttpServlet {
         out.println("<h1>게시물 삭제 결과</h1>");
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (
-                Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.125.9.121:3306/studydb",
-                    "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "delete from pms2_member where mid=?");
-                   ) {
-                System.out.println("삭제가 되나??");
-                stmt.setString(1, id);
-                stmt.executeUpdate();
+            int count = delete(id);
                 
                 
-                if (id == null) {
-                    out.println("<p>해당 회원이 없습니다.</p>");
-               } else {
-                    out.println("<p>삭제하였습니다.</p>");
-                }
-            } 
+            if (count == 0) {
+                out.println("해당 아이디의 회원이 없습니다.");
+            } else {
+                out.println("삭제하였습니다.");
+            }
             
         } catch (Exception e) {
             out.println("<p>삭제 실패!</p>");
@@ -64,5 +53,21 @@ public class MemberDeleteServlet extends HttpServlet {
         }
         out.println("</body>");
         out.println("</html>");
+    }
+    public int delete(String id) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        try (
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://13.125.9.121:3306/studydb",
+                "study", "1111");
+            PreparedStatement stmt = con.prepareStatement(
+                "delete from pms2_member where mid=?");
+               ) {
+            System.out.println("삭제가 되나??");
+            stmt.setString(1, id);
+            
+        
+        return stmt.executeUpdate();
+    }
     }
 }
