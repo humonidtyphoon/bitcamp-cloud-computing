@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
@@ -26,7 +28,6 @@ public class MemberAddServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
         Member member = new Member();
         member.setId(request.getParameter("id"));
         member.setEmail(request.getParameter("email"));
@@ -35,32 +36,25 @@ public class MemberAddServlet extends HttpServlet {
         System.out.println("새로 넣으러 왔다");
 
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");  
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        
-        out.println("<title>회원 등록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>회원 등록 결과</h1>");
+      
         
         try {
             MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
             memberDao.insert(member);   //add 메소드 호출 
+            
+            response.sendRedirect("list");
  
-            out.println("<p>등록 성공!</p>");
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
-            e.printStackTrace(out);
+            request.setAttribute("error", e);
+            System.out.println("<목록 가져오기 실패!");
+            RequestDispatcher rd = 
+                    request.getRequestDispatcher("/error.jsp");
+            
+            rd.forward(request, response);
+            
+            e.printStackTrace();
         }
-        out.println("</body>");
-        out.println("</html>");
         
-        response.sendRedirect("list");
     }
 
     
