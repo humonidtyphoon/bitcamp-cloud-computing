@@ -6,6 +6,7 @@
 - scoop (package manager)
 - scoop install gradel
 - scoop install mariadb
+- scoop install nodejs
 - scoop install mariadb@10.3.7
 
 scoop services install \
@@ -72,14 +73,26 @@ studydb에 테이블 생성
     - Preferences/Web/
         - CSS Files : 문자 집합을 UTF-8로 설정
         - HTML Files : 문자 집합을 UTF-8로 설정
-        -  Files : 문자 집합을 UTF-8로 설정
+        - JSP Files : 문자 집합을 UTF-8로 설정
+5)WAS 서버 환경설정
+    - servers/ 
+        -Runtime Environments/
+        - tomcat 경로 설정
+6)톰캣 애플리케이션 배포하고 테스트할 실행 환경 설정
+    -Server 뷰 에서 
+        -server 
 ```
 
 ## 웹 프로젝트 폴더 준비 
 
 ```
-예제 프로젝트 복사
 
-java106-java-project 를 
-BITCAMP-CLOUD-COMPUTING 폴더로 복사한다.
+1)예제 프로젝트 복사
+
+-java106-java-project 를 
+    BITCAMP-CLOUD-COMPUTING 폴더로 복사한다.
+2) 프로젝트 폴더를 이클립스 프로젝트로 만든다.
+- 'gradle ecliplse;'를 실행하여 이클립스 설정 파일을 생성한다.
+- .project build.xml
+
 ```

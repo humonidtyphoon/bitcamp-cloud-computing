@@ -1,15 +1,19 @@
-# bitcamp-web-01 : 웹 프로젝트 폴더 준비
+# bitcamp-web-02 : 서블릿 
 
-## 1) 프로젝트 폴더 생성
+- pms2_member 테이블에 대한 CRUD 서블릿을 만들기
 
-```
-> mkdir bitcamp-web-01
-> cd bitcamp-web-01
-```
-## 2) Maven 기본 디렉토리 구조를 생성
+## package 생성 
+bitcamp.pms.servlet 패키지 생성한다
 
-자바 애플리케이션 프로젝트를 위한 기본 폴더 및 예제파일을 생성
-
-```
-> gradle init -- type java-application
-```
+## 회원 관리 서블릿 만들기
+-servlet -api 의존 라이브러리 추가하기
+(-mvnrepository.com) servlet -api 라이브러리 검색
+ -build.gradle 에 라이브러리 등록 
+ -'gradle eclipse 갱신 .classPath  파일 갱신
+ -mysql jdbc 의존 라이브러리 추가하기
+- bitcampt.pms.servlet.member
+MemberAddServlet.java
+MemberDeleteServlet.java
+MemberListServlet.java
+MemberUpdateServlet.java
+MemberViewServlet.java
