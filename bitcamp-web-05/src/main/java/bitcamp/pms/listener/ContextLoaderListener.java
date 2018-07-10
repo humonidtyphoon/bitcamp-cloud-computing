@@ -11,7 +11,11 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import bitcamp.pms.dao.BoardDao;
+import bitcamp.pms.dao.ClassroomDao;
 import bitcamp.pms.dao.MemberDao;
+import bitcamp.pms.dao.TaskDao;
+import bitcamp.pms.dao.TeamDao;
 
 //어노테이션을 통해서 속성 전달 
 @WebListener
@@ -34,10 +38,17 @@ public class ContextLoaderListener implements ServletContextListener {
             
             
             MemberDao memberDao = new MemberDao(sqlSessionFactory);
+            BoardDao boardDao = new BoardDao(sqlSessionFactory);
+            ClassroomDao classroomDao = new ClassroomDao(sqlSessionFactory);
+            TeamDao teamDao = new TeamDao(sqlSessionFactory);
+            TaskDao taskDao = new TaskDao(sqlSessionFactory);
             
            ServletContext sc = sce.getServletContext();
            sc.setAttribute("memberDao",memberDao);
-           
+           sc.setAttribute("boardDao",boardDao);
+           sc.setAttribute("classroomDao",classroomDao);
+           sc.setAttribute("teamDao",teamDao);
+           sc.setAttribute("taskDao",taskDao);
         }catch (Exception e) {e.printStackTrace();}
 
     }
