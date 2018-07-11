@@ -18,6 +18,10 @@ import bitcamp.pms.domain.Classroom;
 @WebServlet("/classroom/add")
 public class ClassroomAddServlet extends HttpServlet {
     
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("view","/classroom/form.jsp");
+    }
 
     
     @Override
@@ -26,7 +30,6 @@ public class ClassroomAddServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         
         
-        request.setCharacterEncoding("UTF-8");
         
         Classroom classroom = new Classroom();
         classroom.setTitle(request.getParameter("title"));
@@ -34,16 +37,14 @@ public class ClassroomAddServlet extends HttpServlet {
         classroom.setEndDate(Date.valueOf(request.getParameter("endDate")));
         classroom.setRoom(request.getParameter("room"));
         
-        response.setContentType("text/html;charset=UTF-8");
         try {
             ClassroomDao classroomDao = (ClassroomDao)getServletContext().getAttribute("classroomDao");
             classroomDao.insert(classroom);
-            response.sendRedirect("list");
+            request.setAttribute("view", "redirect:list");
+            
 
         } catch (Exception e) {
             request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 등록 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 }

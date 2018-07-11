@@ -20,7 +20,6 @@ public class BoardViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        //request.setCharacterEncoding("UTF-8");
         int no = Integer.parseInt(request.getParameter("no"));
         
         response.setContentType("text/html;charset=UTF-8");
@@ -30,18 +29,10 @@ public class BoardViewServlet extends HttpServlet {
             
             Board board = boardDao.selectOne(no);
             request.setAttribute("board", board);
-            
-            RequestDispatcher rd = 
-                    request.getRequestDispatcher("/board/view.jsp");
-            
-            rd.include(request, response);
+            request.setAttribute("view","/board/view.jsp");
+          
         } catch (Exception e) {
             request.setAttribute("error", e);
-            
-            RequestDispatcher rd = 
-                    request.getRequestDispatcher("/error.jsp");
-            
-            rd.forward(request, response);
         }
     }
 

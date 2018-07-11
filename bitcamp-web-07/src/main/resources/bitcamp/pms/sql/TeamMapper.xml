@@ -48,4 +48,18 @@
       stat=#{state} 
     where tano=#{no}
   </update>
+    <select id="selectOneWithMembers" parameterType="string" resultMap="TeamMap">
+    select 
+        t.name, 
+        t.dscrt, 
+        t.sdt, 
+        t.edt, 
+        t.max_qty,
+        tm.mid,
+        m.email
+    from pms2_team t 
+         left outer join pms2_team_member tm on t.name=tm.tnm
+         left outer join pms2_member m on tm.mid=m.mid
+    where t.name=#{value}
+  </select>
 </mapper>

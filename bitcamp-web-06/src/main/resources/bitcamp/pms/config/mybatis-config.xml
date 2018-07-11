@@ -27,6 +27,7 @@
   </environments>
   <mappers>
     <mapper resource="bitcamp/pms/sql/MemberMapper.xml"/>
+    <mapper resource="bitcamp/pms/sql/TeamMemberMapper.xml"/>
     <mapper resource="bitcamp/pms/sql/BoardMapper.xml"/>
     <mapper resource="bitcamp/pms/sql/TeamMapper.xml"/>
     <mapper resource="bitcamp/pms/sql/ClassroomMapper.xml"/>

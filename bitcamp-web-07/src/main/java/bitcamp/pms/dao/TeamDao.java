@@ -55,4 +55,10 @@ public class TeamDao {
                     "team.selectOne", name);
         }
     } 
+    public Team selectOneWithMembers(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectOne(
+                    "team.selectOneWithMembers", name);
+        }
+    }
     }

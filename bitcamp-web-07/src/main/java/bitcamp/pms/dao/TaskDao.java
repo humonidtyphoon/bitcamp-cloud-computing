@@ -41,6 +41,14 @@ public class TaskDao {
             return count;
         }
     }
+    public int deleteByTeam(String teamName) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.delete(
+                    "task.deleteByTeam", teamName);
+            sqlSession.commit();
+            return count;
+        } 
+    }
 
     public int update(Task task) throws Exception {
         try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {

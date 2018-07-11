@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>게시물 목록</h1>
-<p><a href='form.html'>새 글</a></p>
+<p><a href='add'>새 글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>강의명</th><th>기간</th><th>강의실</th>

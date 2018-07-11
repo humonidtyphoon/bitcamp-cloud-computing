@@ -15,15 +15,21 @@ import bitcamp.pms.domain.Board;
 @SuppressWarnings("serial")
 @WebServlet("/board/add")
 public class BoardAddServlet extends HttpServlet {
+    
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) 
+                    throws ServletException, IOException {
+        request.setAttribute("view","/board/form.jsp");
+    }
+    
     @Override
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) 
                     throws ServletException, IOException {
         
-        //new Date(System.currentTimeMillis());
         
-        response.setContentType("text/html;charset=UTF-8");
         
         try {
 
@@ -35,7 +41,7 @@ public class BoardAddServlet extends HttpServlet {
                     (BoardDao) getServletContext().getAttribute("boardDao");
             
             boardDao.insert(board);
-            response.sendRedirect("list");
+            request.setAttribute("view","redirect:list");
         } catch (Exception e) {
             request.setAttribute("error", e);
             RequestDispatcher rd = 

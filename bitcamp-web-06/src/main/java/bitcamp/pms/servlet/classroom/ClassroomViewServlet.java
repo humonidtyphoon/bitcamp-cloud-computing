@@ -35,14 +35,12 @@ public class ClassroomViewServlet extends HttpServlet {
                 throw new Exception("유효하지 않은 게시물 번호입니다.");
             }
             request.setAttribute("classroom", classroom);
+            request.setAttribute("view", "/classroom/view.jsp");
 
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/classroom/view.jsp").include(request, response);
             
         } catch (Exception e) {
             request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 상세조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+           // request.setAttribute("title", "게시물 상세조회 실패!");
         }
     }
 }

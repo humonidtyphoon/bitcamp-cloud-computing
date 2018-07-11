@@ -20,7 +20,6 @@ public class BoardUpdateServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
         
         try {
             Board board = new Board();
@@ -32,20 +31,16 @@ public class BoardUpdateServlet extends HttpServlet {
                     (BoardDao) getServletContext().getAttribute("boardDao");
             
             if (boardDao.update(board) == 0) {
-                RequestDispatcher rd = 
-                        request.getRequestDispatcher("/board/updatefail.jsp");
-                rd.forward(request, response);
+                request.setAttribute("view","/board/updatefail.jsp");
             } else {
-                response.sendRedirect("list");
+                request.setAttribute("view","redirect:list");
             }
                 
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = 
-                    request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
+           
         }
     }
 
     
-} //class
+} 

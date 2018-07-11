@@ -15,64 +15,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.TeamDao;
+import bitcamp.pms.domain.Team;
+
 @SuppressWarnings("serial")
 @WebServlet("/team/add")
 public class TeamAddServlet extends HttpServlet {
-	
-	  @Override
-	    protected void doPost(
-	            HttpServletRequest request, 
-	            HttpServletResponse response) throws ServletException, IOException {
-	        
-	        request.setCharacterEncoding("UTF-8");
-	        
-	        
-	  
-	        
-	       // team.setName(request.getParameter("name"));
-	       // team.setDescription(request.getParameter("description"));
-	      //  team.setMaxQty(Integer.parseInt(request.getParameter("maxQty")));
-	      //  team.setStartDate(Date.valueOf(request.getParameter("startDate")));
-	       // team.setEndDate(Date.valueOf(request.getParameter("endDate")));
 
-	        response.setContentType("text/html;charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        
-	        out.println("<!DOCTYPE html>");
-	        out.println("<html>");
-	        out.println("<head>");
-	        out.println("<meta charset='UTF-8'>");
-	        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-	        
-	        out.println("<title>팀 등록</title>");
-	        out.println("</head>");
-	        out.println("<body>");
-	        out.println("<h1>팀 등록 결과</h1>");
-	        
-	        try {
-	        	Class.forName("com.mysql.jdbc.Driver");
-	            try (
-	                Connection con = DriverManager.getConnection(
-	                    "jdbc:mysql://13.125.9.121:3306/studydb",
-	                    "study", "1111");
-	                  PreparedStatement stmt = con.prepareStatement(
-	                      "insert into pms2_team(name,dscrt,max_qty,sdt,edt) values(?,?,?,?,?)");) {
-	                  
-	                  stmt.setString(1, request.getParameter("name"));
-	                  stmt.setString(2, request.getParameter("description"));
-	                  stmt.setInt(3, Integer.parseInt(request.getParameter("maxQty")));
-	                  stmt.setDate(4, Date.valueOf(request.getParameter("startDate")), Calendar.getInstance(Locale.KOREAN));
-	                  stmt.setDate(5, Date.valueOf(request.getParameter("endDate")), Calendar.getInstance(Locale.KOREAN));
-	                  
-	                  stmt.executeUpdate();
-	              }
-	            
-	            out.println("<p>등록 성공!</p>");
-	        } catch (Exception e) {
-	            out.println("<p>등록 실패!</p>");
-	            e.printStackTrace(out);
-	        }
-	        out.println("</body>");
-	        out.println("</html>");
-	    }
-}	
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("view","/team/form.jsp");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            TeamDao teamDao = (TeamDao) getServletContext().getAttribute("teamDao");
+            Team team = new Team();
+            team.setName(request.getParameter("name"));
+            team.setDescription(request.getParameter("description"));
+            team.setMaxQty(Integer.parseInt(request.getParameter("maxQty")));
+            team.setStartDate(Date.valueOf(request.getParameter("startDate")));
+            team.setEndDate(Date.valueOf(request.getParameter("endDate")));
+
+            teamDao.insert(team);
+            request.setAttribute("view", "redirect:list");
+
+        } catch (Exception e) {
+            request.setAttribute("error", e);
+        }
+    }
+
+}

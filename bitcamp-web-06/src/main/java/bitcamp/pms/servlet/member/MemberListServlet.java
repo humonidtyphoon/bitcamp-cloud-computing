@@ -2,25 +2,15 @@ package bitcamp.pms.servlet.member;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.fabric.xmlrpc.base.Param;
 
 import bitcamp.pms.dao.MemberDao;
 import bitcamp.pms.domain.Member;
@@ -29,9 +19,6 @@ import bitcamp.pms.domain.Member;
 @WebServlet("/member/list")
 
 public class MemberListServlet extends HttpServlet {
-    
-
-    
 
     @Override
     protected void doGet(

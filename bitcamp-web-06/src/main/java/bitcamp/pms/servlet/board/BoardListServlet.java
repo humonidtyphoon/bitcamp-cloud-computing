@@ -28,21 +28,14 @@ public class BoardListServlet extends HttpServlet {
             BoardDao boardDao = 
                     (BoardDao) getServletContext().getAttribute("boardDao");
             
-            System.out.println("1");
-            List<Board> list = boardDao.selectList();
-            System.out.println("2");
+           List<Board> list = boardDao.selectList();
             
             request.setAttribute("list", list);
-            System.out.println("3");
             
-            RequestDispatcher rd = 
-                    request.getRequestDispatcher("/board/list.jsp");
-            rd.include(request, response);
+            request.setAttribute("view","/board/list.jsp");
             
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
     

@@ -32,15 +32,12 @@ public class ClassroomListServlet extends HttpServlet {
 
             // JSP가 게시물 목록을 사용할 수 있도록 ServletRequest 보관소에 저장한다.
             request.setAttribute("list", list);
-
-            RequestDispatcher rd = request.getRequestDispatcher("/classroom/list.jsp");
-
-            rd.include(request, response);
+            
+            request.setAttribute("view", "/classroom/list.jsp");
 
         } catch (Exception e) {
             request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 목록조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            //request.setAttribute("title", "게시물 목록조회 실패!");
         }
 
     }

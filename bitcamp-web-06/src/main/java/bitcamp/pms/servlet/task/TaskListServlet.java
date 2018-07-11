@@ -33,20 +33,15 @@ public class TaskListServlet extends HttpServlet {
             String teamName = request.getParameter("teamName");
             System.out.println("팀명은??:"+teamName);
             Team team = teamDao.selectOne(teamName);
-//            if (team == null) {
-//                throw new Exception(teamName + " 팀은 존재하지 않습니다.");
-//            }
+
             List<Task> list = taskDao.selectList(team.getName());
             System.out.println(list.toString());
             request.setAttribute("list", list);
-
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/task/list.jsp").include(request, response);
+            
+            request.setAttribute("view","/task/list.jsp");
 
         } catch (Exception e) {
             request.setAttribute("error", e);
-            request.setAttribute("title", "작업 목록조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
 
     }

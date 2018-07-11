@@ -21,21 +21,16 @@ public class BoardDeleteServlet extends HttpServlet {
         
         int no = Integer.parseInt(request.getParameter("no"));
         
-        response.setContentType("text/html;charset=UTF-8");
         
         try {
             BoardDao boardDao = 
                     (BoardDao) getServletContext().getAttribute("boardDao");
             
             boardDao.delete(no);
-            response.sendRedirect("list");
+            request.setAttribute("view","redirect:list");
         
         } catch (Exception e) {
             request.setAttribute("error", e);
-            
-            RequestDispatcher rd =
-                    request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
     

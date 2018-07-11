@@ -40,7 +40,7 @@ public class ClassroomDao {
     public int insert(Classroom classroom) throws Exception {
         try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
             int count = sqlSession.insert(
-                    "bclassroom.insert", classroom);
+                    "classroom.insert", classroom);
             sqlSession.commit();
             return count;
         }

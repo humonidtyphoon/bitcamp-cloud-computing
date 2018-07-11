@@ -30,12 +30,10 @@ public class ClassroomDeleteServlet extends HttpServlet {
             try {
                 ClassroomDao classroomDao = (ClassroomDao)getServletContext().getAttribute("classroomDao");
                 classroomDao.delete(Integer.parseInt(request.getParameter("no")));
-                response.sendRedirect("list");
+                request.setAttribute("view", "redirect:list");
                 
             } catch (Exception e) {
                 request.setAttribute("error", e);
-                request.setAttribute("title", "게시물 삭제 실패!");
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
     }
 }

@@ -12,6 +12,14 @@
     <result column="edt" property="endDate"/>
     <result column="stat" property="state"/>
      
+         <association property="worker" javaType="Member">
+      <id column="mid" property="id"/>
+    </association>
+
+     
+    <association property="team" javaType="Team">
+      <id column="tnm" property="name"/>
+    </association>
   </resultMap>
   
   <select id="selectList" 
@@ -58,7 +66,10 @@
       tnm=#{team.name} 
     where tano=#{no}
   </update>
-  
+    <delete id="deleteByTeam" parameterType="string">
+    delete from pms2_task 
+    where tnm=#{value}
+  </delete>
   <delete id="delete" parameterType="int">
     delete from pms2_task 
     where tano=#{value}

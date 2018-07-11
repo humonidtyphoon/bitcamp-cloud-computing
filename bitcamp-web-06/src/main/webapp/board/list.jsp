@@ -12,7 +12,7 @@
 
 
 <h1>게시물 목록</h1>
-<p><a href='form.html'>새 글</a></p>
+<p><a href='add'>새 글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>제목</th><th>등록일</th>

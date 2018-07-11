@@ -23,7 +23,6 @@ public class ClassroomUpdateServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
         
         Classroom classroom = new Classroom();
         ClassroomDao classroomDao = (ClassroomDao)getServletContext().getAttribute("classroomDao");
@@ -33,19 +32,16 @@ public class ClassroomUpdateServlet extends HttpServlet {
         classroom.setEndDate(Date.valueOf(request.getParameter("endDate")));
         classroom.setRoom(request.getParameter("room"));
         
-        response.setContentType("text/html;charset=UTF-8");
         
             try {
                 
                 if (classroomDao.update(classroom) == 0) {
                     throw new Exception("해당 게시물이 존재하지 않습니다.");
                 } 
-                response.sendRedirect("list");
+                request.setAttribute("view", "redirect:list");
                 
             } catch (Exception e) {
                 request.setAttribute("error", e);
-                request.setAttribute("title", "게시물 변경 실패!");
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         }
 }

@@ -5,61 +5,87 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.pms.domain.Member;
+
 public class TeamMemberDao {
-    public int insert(String teamName, String memberId) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://13.125.9.121:3306/studydb", "study", "1111");
-                PreparedStatement stmt = con.prepareStatement("insert into pms2_team_member(tnm,mid) values(?,?)");) {
-
-            stmt.setString(1, teamName);
-            stmt.setString(2, memberId);
-            return stmt.executeUpdate();
-        }
+    
+  SqlSessionFactory sqlSessionFactory;
+    
+    public TeamMemberDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
-
-    public int delete(String teamName, String memberId) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://13.125.9.121:3306/studydb", "study", "1111");
-                PreparedStatement stmt = con.prepareStatement("delete from pms2_team_member where tnm=? and mid=?");) {
-
-            stmt.setString(1, teamName);
-            stmt.setString(2, memberId);
-            return stmt.executeUpdate();
+    
+    public int insert(String teamName, String memberId) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
+            
+            int count = sqlSession.insert(
+                    "teamMember.insert", paramMap);
+            sqlSession.commit();
+            return count;
         }
     }
     
+    public int delete(String teamName, String memberId) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
+            
+            int count = sqlSession.delete(
+                    "teamMember.delete", paramMap);
+            sqlSession.commit();
+            return count;
+        } 
+    }
+    
+    public int delete(String teamName) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            
+            int count = sqlSession.delete(
+                    "teamMember.delete", paramMap);
+            sqlSession.commit();
+            return count;
+        } 
+    }
+    
     public List<String> selectList(String teamName) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://13.125.9.121:3306/studydb", "study", "1111");
-                PreparedStatement stmt = con.prepareStatement("select mid from pms2_team_member where tnm=?");) {
-
-            stmt.setString(1, teamName);
-            try (ResultSet rs = stmt.executeQuery()) {
-                ArrayList<String> arr = new ArrayList<>();
-                while (rs.next()) {
-                    arr.add(rs.getString("mid"));
-                }
-                return arr;
-            }
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(
+                    "teamMember.selectList", teamName);
         }
     }
-
+    
+    public List<Member> selectListWithEmail(String teamName) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            System.out.println("???");
+            return sqlSession.selectList(
+                    "teamMember.selectListWithEmail",teamName);
+        }
+    }
+    
     public boolean isExist(String teamName, String memberId) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://13.125.9.121:3306/studydb", "study", "1111");
-                PreparedStatement stmt = con
-                        .prepareStatement("select mid from pms2_team_member where tnm=? and mid=?");) {
-
-            stmt.setString(1, teamName);
-            stmt.setString(2, memberId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return true;
-                }
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            HashMap<String,Object> paramMap = new HashMap<>();
+            paramMap.put("teamName", teamName);
+            paramMap.put("memberId", memberId);
+            
+            int count = sqlSession.selectOne(
+                    "teamMember.isExist", paramMap);
+            if (count > 0)
+                return true;
+            else 
                 return false;
-            }
         }
     }
 }
