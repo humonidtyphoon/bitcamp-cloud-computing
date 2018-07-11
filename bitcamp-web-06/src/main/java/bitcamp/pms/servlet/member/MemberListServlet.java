@@ -59,25 +59,20 @@ public class MemberListServlet extends HttpServlet {
             
            MemberDao memberDao = (MemberDao)getServletContext().getAttribute("memberDao");
                        
-               System.out.println("1");
+               //System.out.println("1");
                List<Member> list = memberDao.selectList(params);
-               System.out.println("2");
+               //System.out.println("2");
                System.out.println("리스트 불러라");
                request.setAttribute("list", list);
-               System.out.println("3");
-               RequestDispatcher rd = 
-                       request.getRequestDispatcher("/member/list.jsp");
+              //System.out.println("3");
+               request.setAttribute("view","/member/list.jsp");
                
-               rd.include(request, response);
+                   
           
         } catch (Exception e) {
             request.setAttribute("error", e);
             System.out.println("<목록 가져오기 실패!");
-            RequestDispatcher rd = 
-                    request.getRequestDispatcher("/error.jsp");
-            
-            rd.forward(request, response);
-            
+           
             e.printStackTrace();
         }
      

@@ -14,7 +14,7 @@
 	parameterType="map">
 		select mid , email from pms2_member
 		 <if test="startIndex != null and pageSize != null">
-        limit #{startIndex}, #{pageSize}
+      limit #{startIndex}, #{pageSize}
     </if>
 	</select>
 
