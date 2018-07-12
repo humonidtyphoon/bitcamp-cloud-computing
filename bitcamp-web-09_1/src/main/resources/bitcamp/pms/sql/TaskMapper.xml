@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="task">
+
+
+  <resultMap type="bitcamp.pms.domain.Task" id="TaskMap">
+    <id column="tano" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="sdt" property="startDate"/>
+    <result column="edt" property="endDate"/>
+    <result column="stat" property="state"/>
+     
+         <association property="worker" javaType="Member">
+      <id column="mid" property="id"/>
+    </association>
+
+     
+    <association property="team" javaType="Team">
+      <id column="tnm" property="name"/>
+    </association>
+  </resultMap>
+  
+  <select id="selectList" 
+          resultMap="TaskMap" parameterType="string">
+    select tano, titl, sdt, edt, stat, mid, tnm 
+    from pms2_task
+    where tnm=#{value} 
+  </select>
+  
+  <insert id="insert" parameterType="Task"
+          useGeneratedKeys="true" keyColumn="tano" keyProperty="no">
+    <choose>
+        <when test="worker.id != ''">
+            insert into pms2_task(titl,sdt,edt,mid,tnm) 
+            values(#{title},#{startDate},#{endDate},#{worker.id},#{team.name})
+        </when>
+        <otherwise>
+           insert into pms2_task(titl,sdt,edt,tnm) 
+            values(#{title},#{startDate},#{endDate},#{team.name})
+        </otherwise>
+    </choose>
+  </insert>
+  
+  <select id="selectOne" parameterType="int" resultMap="TaskMap">
+    select titl,sdt,edt,stat,mid,tnm 
+    from pms2_task 
+    where tano=#{value}
+  </select>
+  
+  <update id="update" parameterType="Task">
+    update pms2_task set 
+      titl=#{title},
+      sdt=#{startDate},
+      edt=#{endDate},
+      stat=#{state},
+      <choose>
+          <when test="worker.id != ''">
+            mid=#{worker.id},
+          </when>
+          <otherwise>
+            mid=null,
+          </otherwise>
+      </choose>
+      tnm=#{team.name} 
+    where tano=#{no}
+  </update>
+    <delete id="deleteByTeam" parameterType="string">
+    delete from pms2_task 
+    where tnm=#{value}
+  </delete>
+  <delete id="delete" parameterType="int">
+    delete from pms2_task 
+    where tano=#{value}
+  </delete>
+
+</mapper>
