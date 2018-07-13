@@ -14,21 +14,23 @@ import bitcamp.pms.domain.Member;
 public class MemberDao {
 
     SqlSessionFactory sqlSessionFactory;
-    
-    public MemberDao() {}
-    
+
+    public MemberDao() {
+    }
+
     public MemberDao(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
-    
+
     @Autowired
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
+
     public List<Member> selectList(Map<String, Object> params) throws Exception {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             System.out.println("멤버 리스트를 불러와라 ");
-            return sqlSession.selectList("member.selectList",params);
+            return sqlSession.selectList("member.selectList", params);
         }
     }
 
@@ -40,7 +42,7 @@ public class MemberDao {
 
     public int update(Member member) throws Exception {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            int count =sqlSession.update("member.update", member);
+            int count = sqlSession.update("member.update", member);
             sqlSession.commit();
             return count;
         }

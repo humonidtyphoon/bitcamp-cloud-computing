@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd" >
+
+    <!-- @Autowired 를 처리하려면 객체를 생성한 후 그 작업을 수행할 객체를 
+    컨테이너에 등록해야 한다. 등록해 두면 컨테이너가 사용할 것이다.
+     -->
+    <context:component-scan base-package="bitcamp.pms">
+        <context:exclude-filter type="regex"
+                            expression="bitcamp.pms.test.*"/>
+    </context:component-scan>
+    
+    <bean id="sqlSessionFactoryBuilder"
+        class="org.apache.ibatis.session.SqlSessionFactoryBuilder"/>
+        
+     <!--Object factory= sqlSessionFactoryBuilder.build();
+     iocContainer.put("sqlSessionFactory",factory);  -->   
+    <bean id="sqlSessionFactory"
+          factory-bean="sqlSessionFactoryBuilder"
+          factory-method="build">
+        <constructor-arg ref="inputStream"/>
+    </bean>
+    
+    <!--Object obj = Resources.getResourceAsStream("bit....);
+        iocContainer.put("inputstream",obj);
+      -->
+    <bean id="inputStream"
+          class="org.apache.ibatis.io.Resources"
+          factory-method="getResourceAsStream">
+        <constructor-arg value="bitcamp/pms/config/mybatis-config.xml"/>
+    </bean>
+</beans>

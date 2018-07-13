@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+
+  <resultMap type="Board" id="BoardMap">
+    <id column="bno" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="cont" property="content"/>
+    <result column="cdt" property="createdDate"/>
+  </resultMap>
+
+  <select id="selectList" 
+          resultMap="BoardMap" 
+          parameterType="map">
+    select bno, titl, cdt 
+    from pms2_board
+    <!--  limit #{startIndex}, #{pageSize} -->
+  </select>
+  
+  <insert id="insert" parameterType="Board"
+          useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
+    insert into pms2_board(titl,cont,cdt) 
+    values(#{title},#{content},now())
+  </insert>
+  
+  <!-- 파라미터의 타입이 primitive type이나 wrapper 클래스, String 클래스인 경우
+       값을 꺼낼 때 프로퍼티 이름을 마음대로 해도 된다.
+  -->
+  <select id="selectOne" parameterType="int" resultMap="BoardMap">
+    select bno,titl,cont,cdt 
+    from pms2_board 
+    where bno=#{value}
+  </select>
+  
+  <update id="update" parameterType="Board">
+    update pms2_board set 
+        titl=#{title}, 
+        cont=#{content}, 
+        cdt=now()
+    where bno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from pms2_board where bno=#{value}
+  </delete>
+</mapper>
