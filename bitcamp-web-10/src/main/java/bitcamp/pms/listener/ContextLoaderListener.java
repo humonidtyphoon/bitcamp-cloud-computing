@@ -24,6 +24,13 @@ public class ContextLoaderListener implements ServletContextListener {
 
             ClassPathXmlApplicationContext iocContainer = new ClassPathXmlApplicationContext("bitcamp/pms/config/application-context.xml");
             
+            String [] names =iocContainer.getBeanDefinitionNames();
+            System.out.println("===============================================");
+            for(String name : names) {
+                System.out.printf("%s==>%s\n",name,
+                        iocContainer.getBean(name).getClass().getName());
+            }
+            
             /*
             String resource = "bitcamp/pms/config/mybatis-config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -35,6 +42,8 @@ public class ContextLoaderListener implements ServletContextListener {
 
             iocContainer.refresh();
                                             */
+            
+            
             
             ServletContext sc = sce.getServletContext();
             sc.setAttribute("iocContainer", iocContainer);

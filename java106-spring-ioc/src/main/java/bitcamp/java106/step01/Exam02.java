@@ -24,10 +24,14 @@ public class Exam02 {
         // => 파일시스템의 실제 경로를 지정하게 되면 나중에 그 경로가 바뀌면 
         //    또 소스 코드를 변경해야 하는 문제가 있다. 
         //    그래서 보통 ClassPathXmlApplicationContext를 많이 사용한다.
-        iocContainer = new FileSystemXmlApplicationContext(
-                "file:///Users/eomjinyoung/git/java106/java106-spring-ioc/src/main/java/bitcamp/java106/step01/application-context.xml");
+        iocContainer = 
+                new FileSystemXmlApplicationContext(
+                "file:///Users/student_22/git/bitcamp-cloud-computing/"
+                + "java106-spring-ioc/src/main/java/bitcamp/java106/"
+                + "step01/application-context.xml");
         
-        // IoC 컨테이너에 보관된 객체를 꺼내기
+        
+        //IoC 컨테이너에 보관된 객체를 꺼내기
         Car car = (Car) iocContainer.getBean("c1");
         System.out.println(car);
         

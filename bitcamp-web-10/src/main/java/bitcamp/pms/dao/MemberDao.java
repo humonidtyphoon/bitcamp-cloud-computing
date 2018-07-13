@@ -22,7 +22,7 @@ public class MemberDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    @Autowired
+    @Autowired()
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
