@@ -41,3 +41,9 @@
 - 페이지 컨트롤러의 의존 객체를 자동으로 주입한다.
 ## web-10: Spring Ioc 컨테이너 도입
 -- 기존에 직접 만든 Ioc 컨테이너 대신에 스프링 컨테이너를 사용한다.
+## web-11: Spring + Mybatis 연동하기
+-기존에 직접만든 sqlSessionFactoryBean 대신에 Mybatis 가
+제공하는 SqlSessionFactoryBean을 사용한다.
+-DB 커넥션 풀은 Mybatis 대신에 Spring 에서 관리한다.
+-트랜잭션을 다룰 수 있도록 트랜잭션 관리자를 설정한다.
+-proxy 패턴을 사용한 DAO 

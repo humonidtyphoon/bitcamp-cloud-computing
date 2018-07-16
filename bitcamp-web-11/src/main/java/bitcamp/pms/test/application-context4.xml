@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context.xsd" >
+
+    <!-- @Autowired 를 처리하려면 객체를 생성한 후 그 작업을 수행할 객체를 
+    컨테이너에 등록해야 한다. 등록해 두면 컨테이너가 사용할 것이다.
+     -->
+    <context:component-scan base-package="bitcamp.pms.test"/>
+    <!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+    <!--패키지를 찾아서 주입하라  -->
+    
+</beans>
