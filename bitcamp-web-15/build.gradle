@@ -32,6 +32,10 @@ dependencies {
     
         // 아팟치 DataSource 라이브러리
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.4.0'
+    // JSON 데이터를 다루는 라이브러리
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    
+    
     
     // Spring IoC 컨테이너 라이브러리
     //compile group: 'org.springframework', name: 'spring-context', version: '5.0.7.RELEASE'
