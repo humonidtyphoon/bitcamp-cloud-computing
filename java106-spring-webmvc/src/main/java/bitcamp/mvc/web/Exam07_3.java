@@ -22,6 +22,7 @@ public class Exam07_3 {
     
     // URI가 특정 규칙과 일치할 때 메서드를 호출하게 할 수 있다.
     // 정규표현식으로 그 규칙을 제어한다.
+    //규칙에 따른 표현 !!!
     @GetMapping(value="m2/{team:t[a-zA-Z]+}-{member:m[a-z0-9]+}-{doc:[0-9]+}", 
             produces="text/plain;charset=UTF-8")
     @ResponseBody
