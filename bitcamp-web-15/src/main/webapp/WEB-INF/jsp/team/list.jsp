@@ -10,14 +10,14 @@
 </head>
 <body>
 <h1>팀 목록</h1>
-<p><a href='add'>새 팀</a></p>
+<p><a href='form'>새 팀</a></p>
 <table border='1'>
 <tr>
     <th>팀명</th><th>최대인원</th><th>기간</th>
 </tr>
 <c:forEach items="${list}" var="team">
 <tr>
-    <td><a href='view?name=${team.name}'>${team.name}</a></td>
+    <td><a href='view/${team.name}'>${team.name}</a></td>
     <td>${team.maxQty}</td>
     <td>${team.startDate}~${team.endDate}</td>
 </tr>

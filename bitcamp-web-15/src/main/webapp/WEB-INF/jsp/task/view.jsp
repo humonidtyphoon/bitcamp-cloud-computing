@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>작업 보기</h1>
-<form action='update' method='post'>
+<form action='../update' method='post'>
 <input type='hidden' name='no' value='${param.no}'>
 <table border='1'>
 <tr>
@@ -47,7 +47,7 @@
 </tr>
 </table>
 <button>변경</button> 
-<a href='delete?no=${param.no}&teamName=${task.team.name}'>삭제</a>
+<a href='../delete?no=${param.no}&teamName=${task.team.name}'>삭제</a>
 </form>
 </body>
 </html>

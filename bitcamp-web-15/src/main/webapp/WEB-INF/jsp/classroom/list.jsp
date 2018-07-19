@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>게시물 목록</h1>
-<p><a href='add'>새 글</a></p>
+<p><a href='form'>새글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>강의명</th><th>기간</th><th>강의실</th>
@@ -18,7 +18,7 @@
 <c:forEach items="${list}" var="classroom">
 <tr>
     <td>${classroom.no}</td>
-    <td><a href='view?no=${classroom.no}'>${classroom.title}</a></td>
+    <td><a href='view/${classroom.no}'>${classroom.title}</a></td>
     <td>${classroom.startDate}~${classroom.endDate}</td>
     <td>${classroom.room}</td>
 </tr>

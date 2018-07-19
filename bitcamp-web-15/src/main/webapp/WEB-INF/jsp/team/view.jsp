@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>팀상세보기 </h1>
-<form action='update' method='post'>
+<form action='../update' method='post'>
 <table border='1'>
 <tr>
     <th>팀명</th>
@@ -34,9 +34,9 @@
 </tr>
 </table>
 <p>
-<a href='list'>목록</a>
+<a href='../list'>목록</a>
 <button>변경</button>
-<a href='delete?name=${team.name}'>삭제</a>
+<a href='../delete?name=${team.name}'>삭제</a>
 <a href='../task/list?teamName=${team.name}'>작업목록</a>
 </p>
 </form>

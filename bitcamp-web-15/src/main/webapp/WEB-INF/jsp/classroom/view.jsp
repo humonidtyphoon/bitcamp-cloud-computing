@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>강의 보기</h1>
-<form action='update' method='post'>
+    <form action='../update' method='post'>
 <input type='hidden' name='no' value='2'>
 <table border='1'>
 <tr>
@@ -29,9 +29,9 @@
 </tr>
 </table>
 <p>
-<a href='list'>목록</a>
+<a href='../list'>목록</a>
 <button>변경</button>
-<a href='delete?no=${classroom.no}'>삭제</a>
+<a href='../delete?no=${classroom.no}'>삭제</a>
 </p>
 </form>
 </body>
