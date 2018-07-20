@@ -9,9 +9,8 @@
 <title>작업 등록</title>
 </head>
 <body>
-<h1>'${param.teamName}' 팀의 작업 등록</h1>
-<form action='add?teamName=${param.teamName}' method='post'>
-<input type='hidden' name='teamName' value='${param.teamName}'>
+<h1><a href='list'>'${teamName}' 팀의 작업</a> 등록</h1>
+<form action='add' method='post'>
 <table border='1'>
 <tr>
     <th>작업명</th><td><input type='text' name='title'></td>

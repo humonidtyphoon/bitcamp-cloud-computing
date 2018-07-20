@@ -12,6 +12,7 @@
 <h1><a href='../team/view?name=${param.teamName}'>${param.teamName}</a>
 의 작업 목록(MVC + JSP 전용 태그 + EL + JSTL)</h1>
 <p><a href='add?teamName=${param.teamName}'>새작업${param.teamName}</a></p>
+<p><a href='form'>새작업22</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>작업명</th><th>기간</th><th>작업자</th>
