@@ -21,12 +21,21 @@
       <id column="tnm" property="name"/>
     </association>
   </resultMap>
-  
+<!--   
   <select id="selectList" 
           resultMap="TaskMap" parameterType="string">
     select tano, titl, sdt, edt, stat, mid, tnm 
     from pms2_task
     where tnm=#{value} 
+  </select> -->
+  
+    <select id="selectList" 
+          resultMap="TaskMap" parameterType="map">
+    select tano, titl, sdt, edt, stat, mid, tnm 
+    from pms2_task
+    where tnm=#{teamName} 
+    order by sdt asc
+    limit #{startRowNo}, #{pageSize}
   </select>
   
   <insert id="insert" parameterType="Task"

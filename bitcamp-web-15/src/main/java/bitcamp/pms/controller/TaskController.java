@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,9 @@ import bitcamp.pms.domain.Team;
 @RequestMapping("/team/{teamName}/task")
 public class TaskController {
     
-    TeamDao teamDao;
-    TaskDao taskDao;
-    TeamMemberDao teamMemberDao;
+   @Autowired TeamDao teamDao;
+   @Autowired TaskDao taskDao;
+   @Autowired TeamMemberDao teamMemberDao;
 
     @RequestMapping("add")
     public String add(
@@ -92,18 +93,27 @@ public class TaskController {
             @MatrixVariable(defaultValue="1") int pageNo,
             @MatrixVariable(defaultValue="3") int pageSize,
             Map<String,Object> map) throws Exception {        
-            
+            System.out.println("야1");
+            System.out.println("야2");
+            System.out.println("야3");
+            System.out.println("teamName"+teamName);
         HashMap<String,Object> params = new HashMap<>();
+        System.out.println("야4");
         params.put("startRowNo", (pageNo - 1) * pageSize);
+        System.out.println("야5");
         params.put("pageSize", pageSize);
         params.put("teamName", teamName);
         
+        System.out.println("야7");
         Team team = teamDao.selectOne(teamName);
+        System.out.println(teamName+"///////");
         if (team == null) {
             throw new Exception(teamName + " 팀은 존재하지 않습니다.");
         }
         List<Task> list = taskDao.selectList(params);
+        System.out.println(list.toString()+"//////////////////////");
         map.put("list", list);
+        System.out.println("teamName"+teamName);
         map.put("teamName", teamName);
         return "task/list";
     }
@@ -116,6 +126,8 @@ public class TaskController {
         
         task.setTeam(new Team().setName(teamName));
         task.setWorker(new Member().setId(memberId));
+        
+        System.out.println("//////"+task.toString());
         
         int count = taskDao.update(task);
         if (count == 0) {

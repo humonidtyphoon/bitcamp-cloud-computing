@@ -37,7 +37,8 @@
 <a href='../list'>목록</a>
 <button>변경</button>
 <a href='../delete?name=${team.name}'>삭제</a>
-<a href='../task/list?teamName=${team.name}'>작업목록</a>
+<a href='../../task/list?teamName=${team.name}'>작업목록</a>
+<a href='../${team.name}/task/list'>작업목록2</a>
 </p>
 </form>
 </body>
