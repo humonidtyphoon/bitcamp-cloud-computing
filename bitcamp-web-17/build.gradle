@@ -42,7 +42,10 @@ dependencies {
     
         // => Web MVC 라이브러리 는 context 라이브러리를 포함하기 
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.7.RELEASE'
-        //spring-jdbc 라이브러리 
+     //aspectjweaver
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.1'   
+         
+        //spring-jdbc 라이브러리
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.7.RELEASE'
     //compile 라이브러는 웹 애플리케이션을 배포할 때 함께 배포한다.
     // mysql jdbc driver

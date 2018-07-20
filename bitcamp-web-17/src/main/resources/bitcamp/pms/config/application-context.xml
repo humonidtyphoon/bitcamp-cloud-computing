@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
@@ -16,9 +22,33 @@
     <context:component-scan base-package="bitcamp.pms">
 
     </context:component-scan>
-    
+    <!--  -->
      <mvc:annotation-driven enable-matrix-variables="true"/>
-
+    <!-- 트랜잭션 관련 애노테이션 객체를 등록한다. -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+    
+     <!--애노테이션이 아닌  -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!-- get 으로 시작하는것은 업데이트 하지말고 오직 읽어라 -->
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    
+    <!--트랜잭션을 적용할 대상을 설정한다.  -->
+    
+     <aop:config>
+     <!--대상의 규칙을 선언합니다.  -->
+        <aop:pointcut id="ServiceOperation" 
+        expression="execution(* bitcamp.pms.service.*.*(..))"/>
+        <!--대상에 대해 어떤 트랜잭션을 적용할 지 설정한ㄷㅏ  -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="ServiceOperation"/>
+    </aop:config>
+    
+   
  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource"/>          
     <property name="mapperLocations" value="classpath:bitcamp/pms/sql/**/*.xml" />
