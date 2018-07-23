@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> strict 모드</h1>
+<script type="text/javascript">
+/*자바스크립트 는 변수를 선언하지 않고 바로 사용할수 있다.
+*/
+
+ var a;
+ // 변수의타입은 값을 넣을 때 결정된다.
+ 
+ a =100; // a-> number
+ console.log(a);
+ 
+ a="hello";      //  a-> 변수는 string
+ 
+ console.log(a);
+ 
+// 변수 선언 없이 마구잡이로 변수를 사용하면 유지보수가 힘들어진다.
+// 변수 선언을 강요하기 위해서 strict 모드라는 것을 제공한다.
+
+"use strict" // 그냥한줄에 문자열로 된 "strict" 를 선언하라 !
+
+b=200; // 오류? 중간에 선언하는 것은 소용없다.
+		//  반드시 script 첫줄에 선언해야한다.
+
+
+</script>
+<script>
+// 첫줄에 strict 모드로 동작하고 선언하라!!
+"use strict"
+c= 200; // 변수를 선언하지 않고 실행했기 때문에  오류 
+console.log(c);'
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> 자바 스크립트 값의 타입(typeof 연산자)</h1>
+<script type="text/javascript">
+/*typeof 연산자를 사용하여 값의 타입을 알아내기
+*/
+
+//-> 문자열
+console.log("타입은"+typeof "문자열") //STRING    
+console.log("타입은"+typeof "hello")//STRING   
+
+//-> 숫자
+console.log("타입은"+typeof 100) //number
+console.log("타입은"+typeof 3.14)//number
+//논리값
+console.log("타입은"+typeof true)//boolean
+console.log("타입은"+typeof false) //boolean
+
+//=> 객체
+console.log("타입은"+typeof new Object()) //Object
+console.log("타입은"+typeof function() {}) // function
+console.log("타입은"+typeof null) // object
+
+// 상수값
+console.log("타입은"+typeof undefined)
+console.log("타입은"+typeof Infinity)//number
+console.log("타입은"+typeof-Infinity)//number
+console.log("타입은"+typeof NaN)  //number
+</script>
+
+
+</body>
+</html>

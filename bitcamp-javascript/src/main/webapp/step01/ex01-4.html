@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> Script 태그의 type 속성</h1>
+<script type="text/javascript">
+console.log("hello")
+</script>
+<h1>SCRPIT 태그 </h1>
+<!-- type 속성이 "text/javascript" 가 아닌 웹 브라우져는
+script 태그를 처리하지 못한다.
+결국 script 태그는 일반 태그처럼 메모리에 로딩만된다.
+화면에 출력도 되지 않는다  -->
+<script type="text/okok">
+console.log("Hello")
+</script>
+<!--script 가 아닌 임의의 태그는 화면에 출력 된다.  -->
+<scripot type="text/javascript">슈댕</scripot>
+</body>
+</html>
