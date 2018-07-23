@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> 변수 선언- 글로벌 변수와 로컬변수의 출돌</h1>
+<script>
+"use strict"
+
+
+	var a=100;
+	function f(){
+		var a //함수 안에서 선언한 변수는 로컬 변수이다.
+		      // 설사 글로벌 변수와 이름이 같다 할지라도 함수안에서는 별도의 로컬변수이다.
+		a=200;
+	    {
+	    	var c=300;
+	    }
+	    console.log("f()a:",a);
+	    console.log("f()",c);
+	   //로컬변수와 이름이 같은 글로벌 변수를 가리키고 싶다면
+	    // 정확하게 window 객체를 지정해야 한다.
+	    console.log("글로벌 변수 : a",window.a);
+	}	
+	f();
+	console.log("함수밖:",a);
+/* 	console.log(a);
+	console.log(b); // 오류 ! 함수 안에서 선언된 변수는 밖에서 사용할수 없다. 
+	console.log(c); */
+	// 자바스크립트 는 오직 함수 밖에 선언되 글로벌 변수와
+	// 함수안에 선언된 로컬 변수 밖에 없다.
+</script>
+            
+
+</body>
+</html>

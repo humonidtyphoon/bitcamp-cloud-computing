@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> strict 모드</h1>
+<script type="text/javascript">
+/*자바스크립트 는 변수를 선언하지 않고 바로 사용할수 있다.
+*/
+"use strict"
+ var a;
+ // 변수의타입은 값을 넣을 때 결정된다.
+ 
+ a =100; // a-> number
+ console.log(a);
+ 
+ a="hello";      //  a-> 변수는 string
+ 
+ console.log(a);
+ 
+
+
+//"use strict" // 는 선언된 태그에서만 적용된다.
+
+b=200; // 이전에 선언된 use strict 는 다른 태그에 영향를 끼치지 못한다. 
+
+</script>
+<script>
+// 첫줄에 strict 모드로 동작하고 선언하라!!
+//"use strict"
+c= 200; 
+console.log(c);'
+</script>
+</body>
+</html>

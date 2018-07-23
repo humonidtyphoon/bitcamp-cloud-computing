@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+<body>
+<h1>반복문 -객체에 for...of 적용</h1>
+<script>
+
+ var obj = new Object();
+ obj.name ="홍길동";
+ obj.kor =100;
+ obj.eng=100;
+ obj.math=96;
+ obj.sum= obj.kor + obj.eng + obj.math;
+ obj.aver = obj.sum / 3;
+
+ //for .. of 에 대상은 배열이나 String NodeList Map Ser 만 가능하다.
+ //for .. in 처럼 일반 객체에 대해서는 반복문을 실행 XX
+ // 다음은 오류
+ /*
+ for(var i of obj){ // 반복문을 돌리 대상이 객체이 ㄴ경우 i의 값은 프로퍼티명이다.
+	 console.log(i);
+}
+*/
+var myMap = new Map();
+myMap.set("name","홍길동");
+myMap.set("kor",100);
+myMap.set("eng",100);
+myMap.set("math",96);
+
+myMap.set("sum",(100+100+96));
+myMap.set("aver",myMap.get("sum")/3);
+
+for(var i of myMap){ // 반복문을 돌리 대상이 객체이 ㄴ경우 i의 값은 프로퍼티명이다.
+    console.log(i[0], i[1]);
+}
+
+console.log("===============")
+// 문자열인 경우  i 는 문자열에 한글자인다
+for(var i of "hello")
+	console.log(i)
+
+
+</script>
+
+
+
+
+</body>
+</html>

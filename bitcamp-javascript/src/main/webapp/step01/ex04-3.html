@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> 변수 선언- 객체의 변수에 값넣기 </h1>
+<script>
+"use strict"
+
+window.a = 100;
+window["b"] =200;
+window['c'] =300;
+		
+var a; // 한번 변수를 선언 하면 다음 스크립트 태그에서도 사용할수 있다.
+
+console.log(a)
+console.log(b)
+console.log(c)
+
+// .을 사용할 때에는 변수 이름에 공백이나 특수문자를 넣을수 없다.
+//console.
+//window.first-name ="길동";
+//window.1first-name ="길동";
+//window.first^^name ="길동";
+
+
+window.firstName ="길동";
+window["first-Name"]="김길동";
+console.log(firstName)
+console.log(window["first-Name"])
+</script>
+
+
+</body>
+</html>
