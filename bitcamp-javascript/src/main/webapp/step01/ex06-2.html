@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 </title>
+</head>
+
+<body>
+<h1> 변수 선언-  객체 값 분해</h1>
+<script>
+"use strict"
+
+var obj = new Object();
+obj.name ="홍길동"
+obj.kor=100;
+obj.eng=90;
+obj.math=80;
+
+//객체값의 일부분을 분해하여 변수에 저장하기
+// -> 객체값을 분해하여 변수에 저장할때는 변수선언에 중괄호 사용
+// -> 객체에서 추출하고자 하는 프로퍼티 이름과 같은 이름으로 변수를 선언
+var {name,eng} = obj;
+
+console.log(name,eng);
+
+var {kor,eng} = obj;
+
+console.log(kor,eng);
+// 만약 객체의 프로퍼티 값을 추출할 때 변수 이름을 다르게 하고 싶다면
+// 문법
+// var {추출할 프로퍼티아름: 새변수명} = 객체
+var {kor:k,eng:e} =obj;
+console.log(k,e);
+//값이 없을때
+// var 프로퍼티아름: 새변수명,기본값} = 객체
+var {name:n,sum:s=0,aver:a=0} =obj;
+console.log(n,s,a)
+
+</script>
+
+
+
+</body>
+</html>
