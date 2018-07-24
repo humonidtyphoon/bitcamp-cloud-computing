@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>객체 리턴값 받기</h1>
+<script>
+"use strict"
+
+function f1(){
+	
+	var obj = new Object();
+	obj.name= "홍길동"
+	obj.kor=100;
+	obj.eng=90;
+	obj.math=80;
+	return obj;
+}
+
+var {name,kor} =f1();
+
+console.log(name,kor);
+
+</script>
+</body>
+</html>
