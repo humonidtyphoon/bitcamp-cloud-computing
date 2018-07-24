@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>함수-파라미터- rest parameter</h1>
+
+	<script>
+	"use strict"
+		// rest 파라미터는 나머지 아규먼트값을 가지고 있는 배열
+		// rest 파라미터는 오직 한개만 올수가 있다.
+		// 항상 맨 뒤에 와야한다.
+		function f1(a,b, ...x) {
+			console.log(a,b);
+			
+			// x  배열에 a,b 를 제외한 나머지 아규먼트가 들어있다.
+			console.log("------------------");
+			for(var value of x);
+			    console.log(value)
+			    
+			//arguments 는 모든 아규먼트가 들어있다.
+			console.log("------------------");
+			console.log("length=",arguments.length);
+			for(var value of arguments){}
+			console.log(value);
+			
+			console.log("-=-=-=-=-=-=-=-=--=");
+		}
+	f1();
+	f1(100);
+	f1(100,200);
+    f1(100,200,300);
+    f1(100,200,300,400);
+    f1(100,200,300,400,500);
+    
+
+	   
+	</script>
+</body>
+</html>
