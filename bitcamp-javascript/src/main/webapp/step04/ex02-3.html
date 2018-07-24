@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1> 객체 프로퍼티 -함수 프로퍼티 추가하기</h1>
+
+	<script>
+    "use strict"
+    
+    //
+    var obj1 =  new Object(); 
+    obj1.result = 0;
+    obj1.plus = function(value){
+    	// 같은 객체에 소속된 프로퍼티(변수, 함수)를 가르킬때는 반드시
+    	//this 자바처럼 생략 X
+    	this.result += value;
+    };
+    
+    obj1.minus = function(value){
+    	this.result -= value;
+    }
+    
+    var obj2 ={
+    		result:0,
+    		plus:function(value){this.result +=value;},
+    		minus:function(value){this.result -=value;}
+    		
+    };
+    
+    obj1.plus(100);
+    obj1.plus(50);
+    obj1.minus(70);
+    
+    obj2.plus(10);
+    obj2.plus(5);
+    obj2.minus(7);
+    
+    console.log(obj1.reuslt , obj2.result)
+    console.log(obj1);
+    console.log(obj2);
+    
+
+	</script>
+</body>
+</html>
