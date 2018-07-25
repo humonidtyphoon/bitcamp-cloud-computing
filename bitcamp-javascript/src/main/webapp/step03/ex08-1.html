@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>함수 객체와 메서드</h1>
+<script>
+"use strict"
+
+function f1(){
+	console.log("hello!")
+}
+f1();
+// 함수 = 객체 + 함수 몸체
+// -> 즉 함수 호출을 통해 함수 코드를 실행할 수 있다.
+f1.value= 100;
+f1.plus = function (v) {f1.value+= v};
+f1.hello = function() {console.log("hello~~~")};
+
+
+// -->또한
+f1.plus(200);
+console.log(f1.value);
+f1.hello();
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1> 객체생성 - 생성자 연결</h1>
+
+	<script>
+    "use strict"
+
+		function A() {}
+		A.prototype.f1 = function () {console.log("A->f1()...")};
+
+		function B(){}
+		B.prototype =object.create(A.prototype);
+		B.prototype.constructor = B;
+		B.prototype.f2 = function () {console.log("B->f2()...")};
+
+		function C(){}
+		C.prototype =object.create(B.prototype);
+		C.prototype.constructor = C;
+		C.prototype.f3 = function () {console.log("c->f3()...")};
+
+		function D(){}
+		D.prototype =object.create(C.prototype);
+		D.prototype.constructor = D;
+		D.prototype.f4 = function () {console.log("d->f4()...")};
+
+	var obj = new D();
+
+	</script>
+</body>
+</html>

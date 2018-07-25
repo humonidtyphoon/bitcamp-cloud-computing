@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1> 객체생성 - 생성자 연결</h1>
+
+	<script>
+    "use strict"
+
+    function Calc(v) {
+    	this.value = v;
+    }
+		Calc.prototype.plus = function (v) {this.value += v};
+		Calc.prototype.minus = function (v) {this.value -= v};
+
+		var c1 = new Calc(100);
+
+		c1.plus(50); // 이객체를 초기화사킨 Calc 의 prototype 들어있는 메서드 호출
+		c1.plus(20);
+		c1.minus(80);
+		console.log(c1.v);
+		console.log(c1);
+
+		function Calc2(v) {
+			// 호출할 상위 생성자를 지정하지 않으면 자동으로 Object() 생성자가 호출
+			Calc.call(this,v);
+
+			//만약 프로퍼티 변수를 추가하고 싶다면 다음과 같이 추가하면 된다.
+			this.test= "Hello";
+		}
+		// Calc2 가 사용할 prototype 객체는 기본으로 Object() 를 사용
+		// => 다른말고 Calc2는 Object 를 원형으로 객체를 생성한다는 것
+		// 이 원형 (prototpye)을 Calc로 변경
+
+		Calc2.prototype = Object.create(Calc.prototype);
+		// Calc2.Calc.mutiple = function (V) {this.value *=v};
+		// Calc2.Calc.divide = function (V) {this.value /=v};
+
+		//Calc2 의 prototype 을 복제하여 Calc2 의 prototype 으로 만들게 되면
+		// 생성자 정보가 Calc로 되어있다.
+		// 이생성자 정보를 옳게 바꿔주는것이 나중에 유지보수할 때 좋다.
+
+		Calc2.prototype.constructor = Calc2;
+		// 상속 체인
+		Calc2.prototype.mutiple = function (V) {this.value *=v};
+		Calc2.prototype.divide = function (V) {this.value /=v};
+
+		var c2 = new Calc2(1000);
+
+
+		c2.plus(30);
+
+		console.log(c2.value ,c2.test);
+		console.log("========")
+		console.log("========")
+		console.log(c2);
+
+		//자바스크립트 연산자 중에서 객체가 어떤 생성자를 통해 초기화가 되었는지
+		// 조사하는 연산자가 있다.
+		if( c1 instanceof Object)console.log("c1은 Object 객체이다")
+		if( c1 instanceof Calc)console.log("c1은 Calc 객체이다")
+		if( c1 instanceof Calc2)console.log("c1은 Calc 객체이다")
+
+		console.log("========")
+		console.log("========")
+		if( c2 instanceof Object)console.log("c2은 Object 객체이다")
+		if( c2 instanceof Calc)console.log("c2은 Calc 객체이다")
+		if( c2 instanceof Calc2)console.log("c2은 Calc 객체이다")
+	</script>
+</body>
+</html>
