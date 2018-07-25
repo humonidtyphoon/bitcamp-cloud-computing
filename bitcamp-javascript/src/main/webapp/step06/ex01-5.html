@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+<body>
+	<h1>DOM API- 클래스이름으로 태그 찾기</h1>
+
+<div id="d1">
+	<h2 class="g1 g3">d1.제목1</h2>
+	<h2 class="g1">d1.제목2</h2>
+	<h2 class="g1 g2 g3">d1.제목3</h2>
+	<h2 class="g2">d1.제목4</h2>
+</div>
+<div id="d2">
+	<h2 class="g1 g3">d2.제목1</h2>
+	<h2 class="g1">d2.제목2</h2>
+	<h2 class="g1 g2 g3">d2.제목3</h2>
+	<h2 class="g2">d2.제목4</h2>
+</div>
+
+<h2 class="g1 g3">제목1</h2>
+<h2 class="g1">제목2</h2>
+<h2 class="g1 g2 g3">제목3</h2>
+<h2 class="g2">제목4</h2>
+
+	<script>
+    "use strict"
+
+		//querySelector(selector)
+		//리턴값은 nodeList()객체이다
+		// 여러개의 태그를 찾을 때 사용한ㄷ.
+
+		//태그 이름으로 찾기
+
+
+			console.log("============================================")
+
+		//복작한 selector
+		var el =document.querySelectorAll("div > .g1.g3");
+		console.log(el)
+
+		// nodeList 는 배열은 아니지만 Collection 타입으르모
+		//for .. of 로 사용가능
+		console.log("============================================")
+		for(var e of el){
+			console.log(e)
+		}
+
+		// nodeList 는 배열은 아니지만
+		//for .. in 로 X
+		console.log("============================================")
+		for(var e in el){
+			console.log(e)
+		}
+
+	</script>
+</body>
+</html>
