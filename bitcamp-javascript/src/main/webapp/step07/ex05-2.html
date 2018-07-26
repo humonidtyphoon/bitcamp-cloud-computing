@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<style>
+.a{
+	display: inline-block;
+}
+
+</style>
+</head>
+<body>
+	<h2>태그의 기본행위를 막기 - form 태그 </h2>
+
+
+	<form action="http://www.google.co.kr">
+		*이름 : <input type="text" name="name"><br>
+		*나이 : <input type="text" name="age"><br>
+		전화 : <input type="text" name="tel"><br>
+		<input type="submit" value="등록"><br>
+	</form>
+
+
+
+
+	<script>
+	"use strict"
+
+	// a 태그의 기본 행위
+	//=> a 태그를 클릭하면 href 에 지정된 URL 을 요청한다.
+	//
+	a1.onclick =function (event) {
+		console.log("a1.....click")
+
+	}
+
+	a2.onclick =function (event) {
+		//a 태그를  버튼으로 사용하고 싶어서
+		// a 태그의 기본행위를 막고 싶다면
+		event.preventDefault();
+		console.log("a2.....click")
+
+	}
+
+
+</script>
+</body>
+</html>

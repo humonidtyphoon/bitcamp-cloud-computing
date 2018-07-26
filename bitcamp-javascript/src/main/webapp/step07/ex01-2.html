@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<style>
+.strong{
+	font-weight: bolder;
+	background-color: black;
+	img{
+		height: 80px;
+	}
+}
+
+</style>
+</head>
+<body>
+
+	<h1>이벤트 리스너 등록 - 이벤트 리스너와 this</h1>
+	<button id="btn1">버튼1</button><br>
+	<button id="btn2" >버튼2</button><br>
+
+	<script>
+    "use strict"
+
+
+// 이벤트 리스너에서 this  가리키는것
+///
+
+// ->this 는 리스너를 등록한 태그 객체를 가리킨다.
+btn1.onclick = function () {
+	console.log(this);
+}
+//=> arrow function 에서 this 에서 무조건 window 객체를 가리킨다.
+// 따라서 this 사용하지 않는다면 arrow  function 으로 리스너를 만들어도 된다.
+// 그러나 this 를 사용해야한다면 arrow  function 리스너를 만들지 말라!!!
+
+}
+btn2.onclick =() => {
+	console.log(this);
+}
+
+	</script>
+</body>
+</html>

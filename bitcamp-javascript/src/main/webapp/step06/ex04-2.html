@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<style>
+.strong{
+	font-weight: bolder;
+	background-color: black;
+	img{
+		height: 80px;
+	}
+}
+
+</style>
+</head>
+<body>
+	<div id ="d1">
+		<img src="../img/img1.jpg"/>
+		<img src="../img/img2.jpg"/>
+		<img src="../img/img3.jpg"/>
+		<img src="../img/img4.jpg"/>
+		<img src="../img/img5.jpg"/>
+	</div>
+	<h1>DOM API- 속성 변경</h1>
+
+
+	<script>
+    "use strict"
+
+		setInterval(()=> {
+			var e = document.querySelector("#d1 > img:first-child");
+
+			if(e ==null){
+				clearInterval(tid);
+				return;
+			}
+
+			d1.removeChild(e);
+		}, 1000);
+
+
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+<style>
+.strong{
+	font-weight: bolder;
+	background-color: black;
+	img{
+		height: 80px;
+	}
+}
+
+</style>
+</head>
+<body>
+
+	<h1>이벤트 객체 - 클릭 이벤트</h1>
+	<button id="btn1">버튼1</button><br>
+	<input id="txt1" type="text" name="" value=""><br>
+
+	<script>
+    "use strict"
+
+		btn1.onclick =function (event) {
+				//마우스 클릭으로  발생한 이벤트 객체는 MouseEvnet()로 초기화시킨 객체이다.
+				// -> 보통 자바처럼 MouseEvnet 객체라 표현한다.
+				console.log("alt 키 누룸여부",event.altKey);
+				console.log("ctrl 키 누룸여부",event.ctrlKey);
+				console.log("태그를 기준으로 X좌표",event.offsetX);
+				console.log("태그를 기준으로 y좌표",event.offsetY);
+				console.log("브라우져를 기준으로 x좌표",event.clientX);
+				console.log("브라우저를를 기준으로 y좌표",event.clinetX);
+				console.log("누른 버튼 번호",event.button);
+		};
+
+
+
+	</script>
+</body>
+</html>
