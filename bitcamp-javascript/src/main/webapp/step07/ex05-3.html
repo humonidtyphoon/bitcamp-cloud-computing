@@ -11,10 +11,11 @@
 </style>
 </head>
 <body>
-	<h2>태그의 기본행위를 막기 - form submit 막기 </h2>
+	<h2>태그의 기본행위를 막기 - form submit event </h2>
 
 
-	<form action="http://www.google.co.kr">
+	<form id ="form1" action="http://www.google.co.kr"
+			onsubmit="return checkValidate()">
 		*이름 : <input id="fiName" type="text" name="name"><br>
 		*나이 : <input id="fiAge"type="number" name="age"><br>
 		전화 : <input  id="fiTel" type="text" name="tel"><br>
@@ -27,17 +28,18 @@
 	"use strict"
 
 
-	var e = document.querySelector("form input[type='submit']")
-	console.log(e);
-	e.onclick = function (e) {
+//	var e = document.querySelector("#form1")
+
+	// onsubmit 리턴 값이 true 이면  입력폼의 action 을 실행하고
+	// false 이면 실행하지 않는 특징을 이용한다.
+ function checkValidate() {
 		if(fiName.value.length ==0 || fiAge.value.length ==0){
-			e.preventDefault();
+		
 			alert("필수 항목을 입력하세요!!");
-			return;
+			return false;
 		}
+		return true;
 	};
-
-
 
 </script>
 </body>

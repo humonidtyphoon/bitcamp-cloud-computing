@@ -11,14 +11,14 @@
 </style>
 </head>
 <body>
-	<h2>태그의 기본행위를 막기 - form submit 막기 </h2>
+	<h2>태그의 기본행위를 막기 - form submit event II </h2>
 
 
-	<form action="http://www.google.co.kr">
+	<form id ="form1" action="http://www.google.co.kr">
 		*이름 : <input id="fiName" type="text" name="name"><br>
 		*나이 : <input id="fiAge"type="number" name="age"><br>
 		전화 : <input  id="fiTel" type="text" name="tel"><br>
-		<input type="submit" value="등록"><br>
+		<button type="submit"> 등록"></butto><br>
 	</form>
 
 
@@ -27,17 +27,16 @@
 	"use strict"
 
 
-	var e = document.querySelector("form input[type='submit']")
-	console.log(e);
-	e.onclick = function (e) {
+//	 button 의 기본 타입은 submit이다.
+// 따라서 type 을 지정하지 않으면submit 이기 때문에 조심
+ form1.onsubmit =function() {
 		if(fiName.value.length ==0 || fiAge.value.length ==0){
-			e.preventDefault();
+
 			alert("필수 항목을 입력하세요!!");
-			return;
+			return false;
 		}
+		return true;
 	};
-
-
 
 </script>
 </body>
