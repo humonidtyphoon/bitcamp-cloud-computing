@@ -71,13 +71,12 @@ public class MemberController {
     }
     
     @RequestMapping("view/{id}")
-    public String view(
-            @PathVariable String id,
-            Model model) throws Exception {
+    public Object view(@PathVariable String id
+             ) throws Exception {
         
-        Member member = memberService.get(id);
-        model.addAttribute("member", member);
-        return "member/view";
+        HashMap<String,Object> data = new HashMap<>();
+        data.put("member",memberService.get(id));
+        return data;
     }
 
 }
