@@ -16,22 +16,23 @@
         <td><input type='password' id='ePassword'></td></tr>
     </table>
     <p>
-    <a href='../list'>목록</a>
-    <button>변경</button>
-    <a href='../delete?id=user03'>삭제</a>
+    <button type="button" id="eListBtn">목록</button>
+    <button type="button" id="eUpdateBtn">변경</button>
+     <button type="button" id="eDeleteBtn">삭제</button>
     </p>
     </form>
-
+<script src="../js/common.js"></script>
 <script>
 "use strict"
+
 var data = null;
-var values = location.href.split('?');
-if (values.length < 2) {
+var {id,page,size} = parseQuery(location.href);
+
+if (id == undefined) {
     alert('아이디를 지정하지 않았습니다.');
     location.href = "list.html";
     
 } else {
-    var id = values[1].split('=')[1];
     var xhr = new XMLHttpRequest();
     
     xhr.onreadystatechange = function() {
@@ -55,6 +56,9 @@ if (values.length < 2) {
             true);
     xhr.send();
 }
+eListBtn.onclick = function(){
+	location.href =`list.html?page=${page}&size=${size}`
+	}
 </script>
 
 

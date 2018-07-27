@@ -27,14 +27,35 @@
 <span id="ePageNo"></span>
 <button id="eNextBtn">[다음]</button>
 </div>
-
+<script src="../js/common.js"></script>
 <script>
 "use strict"
+
+var {page, size} = parseQuery(location.href);
+/* var paramMap =
+{};
+
+//queryString -> qs
+var qs = location.href.split('?');
+if(qs.length >1){
+    var params = qs[1].split('&');
+    for(var param of params ){
+    
+        var kv = param.split('=')
+        paramMap[kv[0]] = kv[1];
+    }
+} */
 
 let tbody = document.querySelector('#eListTable > tbody');
 let data =null;
 
-loadList(1,3);
+
+if(page != undefined && size != undefined){
+loadList(page,size);
+}else{
+	loadList(1,3);
+}
+
 
 ePrevBtn.onclick = function(){
 	console.log("ePrevBtn")
@@ -90,7 +111,7 @@ function clickViewLink(event){
 	event.preventDefault();
 	var id=event.currentTarget.getAttribute('data-id');
 	console.log(id);
-	location.href="view.html?id="+id;
+	location.href=`view.html?id=${id}&page=${data.page}&size=${data.size}`;
 }
 
 </script>
