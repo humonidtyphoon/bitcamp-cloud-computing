@@ -29,51 +29,62 @@
 </div>
 
 <script>
+"use strict"
 
-var tbody = document.querySelector('#eListTable > tbody');
+let tbody = document.querySelector('#eListTable > tbody');
+let data =null;
 
-var data =null;
-
-var xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function() {
-    if (xhr.readyState < 4) return;
-    if (xhr.status !== 200) {
-        alert("서버에서 오류 발생!");
-        return;
-    }
-    
-
-    data = JSON.parse(xhr.responseText);
-    for( var item of data.list){
-    	var tr = document.createElement("tr");
-    	tr.innerHTML =
-    		`<td><a href='view/${item.id}'>${item.id}</a></td>`+
-    		`<td>${item.email}</td>`;
-    	tbody.appendChild(tr);	    
-        }
-    ePageNo.innerHTML =data.page;
-    
-    if(data.page <= 1)
-    	  ePrevBtn.setAttribute('disabled',true);
-    if(data.page >=data.totalPage)
-    	  eNextBtn.setAttribute('disabled',true);
-    };  
-
-// 서버에 값을 보낼 때 URL에 붙여 보낸다.
-xhr.open('GET', '../../json/member/list', true);
-xhr.send();
+loadList(1,3);
 
 ePrevBtn.onclick = function(){
 	console.log("ePrevBtn")
+	loadList(data.page-1,data.size);
 };
 
 eNextBtn.onclick = function(){
-	console.log("eNextBtn")
+	   console.log("eNextBtn")
+	loadList(data.page+1,data.size);
 };
 
 
+function loadList(page,size){
 
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+	    if (xhr.readyState < 4) return;
+	    if (xhr.status !== 200) {
+	        alert("서버에서 오류 발생!");
+	        return;
+	    }
+	
+	    data = JSON.parse(xhr.responseText);
+	    tbody.innerHTML='';
+	    for( var item of data.list){
+	    	var tr = document.createElement("tr");
+	    	tr.innerHTML =
+	    		`<td><a href='view/${item.id}'>${item.id}</a></td>`+
+	    		`<td>${item.email}</td>`;
+	    	tbody.appendChild(tr);	    
+	        }
+	    ePageNo.innerHTML =data.page;
+	    
+	    if(data.page <= 1)
+	    	  ePrevBtn.setAttribute('disabled','');
+	    else
+	    	ePrevBtn.removeAttribute('disabled','');
+	    if(data.page >=data.totalPage)
+	    	  eNextBtn.setAttribute('disabled','');
+	    else
+	    	eNextBtn.removeAttribute('disabled','');
+	};  
+	    
+	xhr.open('GET',
+			`../../json/member/list?page=${page}&size`, 
+					true);
+	xhr.send();
+
+};
 
 </script>
 </body>
