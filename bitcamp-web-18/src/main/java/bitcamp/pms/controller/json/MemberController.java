@@ -46,10 +46,14 @@ public class MemberController {
     }
     
     @PostMapping("add")
-    public String add(Member member) throws Exception {
+    public Object add(Member member) throws Exception {
+        HashMap<String, Object> result = new  HashMap<>();
+
+     
+           memberService.add(member);
+           result.put("status","success");
         
-        memberService.add(member);
-        return "redirect:list";
+        return result;
     }
     
     @RequestMapping("delete")
@@ -88,6 +92,7 @@ public class MemberController {
         
         HashMap<String,Object> data = new HashMap<>();
         data.put("member",memberService.get(id));
+        System.out.println(memberService.get(id));
         return data;
     }
 
