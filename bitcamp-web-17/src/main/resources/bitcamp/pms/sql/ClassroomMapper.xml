@@ -17,7 +17,9 @@
           resultMap="ClassroomMap" parameterType="map">
     select crno,titl,sdt,edt,room 
     from pms2_classroom
-    <!--  limit #{startIndex}, #{pageSize} -->
+    <if test="startIndex != null and pageSize != null">
+      limit #{startIndex}, #{pageSize}
+    </if>
   </select>
   
   <select id="selectOne" 
@@ -45,4 +47,9 @@
   <delete id="delete" parameterType="int">
     delete from pms2_classroom where crno=#{value}
   </delete>
+  
+    <!--카운트  -->
+    <select id="countAll" resultType="int">
+          select count(*) from pms2_classroom
+    </select>
 </mapper>

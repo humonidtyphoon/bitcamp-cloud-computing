@@ -33,7 +33,7 @@
             <!-- get 으로 시작하는것은 업데이트 하지말고 오직 읽어라 -->
             <tx:method name="get*" read-only="true"/>
             <tx:method name="list*" read-only="true"/>
-            <tx:method name="*"/>
+           
         </tx:attributes>
     </tx:advice>
     

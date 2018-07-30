@@ -1,4 +1,4 @@
-package bitcamp.pms.controller;
+package bitcamp.pms.controller.json;
 
 import java.util.List;
 
@@ -9,36 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.pms.dao.BoardDao;
 import bitcamp.pms.domain.Board;
-import bitcamp.pms.service.BoardService;
 
 @Controller
 @RequestMapping("/board/")
 public class BoardController  {
     
-   @Autowired BoardService boardService;
+   @Autowired BoardDao boardDao;
    
    ////////////////////////////////////////////////////////
    /////////////////////list/////////////////////////////////
     @RequestMapping("list")
     public String list(
-            @RequestParam(defaultValue="1")int page,
-            @RequestParam(defaultValue="3")int size,
            Model model) throws Exception {
-        
-        if(page<1)page=1;
-        if(size<1||size >20)size =3;
-        List<Board> list = boardService.list(page,size);
+            List<Board> list = boardDao.selectList();
             model.addAttribute("list", list);
-            model.addAttribute("page", page);
-            model.addAttribute("size", size);
-            
-            model.addAttribute("totalPage", boardService.getTotalPage(size));
-            
-            
            return "board/list";
             
     } 
@@ -53,7 +40,7 @@ public class BoardController  {
     public String add(
         Board board) 
                     throws Exception {
-            boardService.add(board);
+            boardDao.insert(board);
             return "redirect:list";
         
     }
@@ -63,7 +50,7 @@ public class BoardController  {
     @RequestMapping("view/{no}")
     public String view(
            @PathVariable int no,Model model) throws Exception {
-        Board board = boardService.get(no);
+        Board board = boardDao.selectOne(no);
             model.addAttribute("board", board);
             return "board/view";
         }
@@ -74,7 +61,7 @@ public class BoardController  {
     public String delete(int no
             ) throws Exception {
         
-            boardService.delete(no);
+            boardDao.delete(no);
             return "redirect:list";
     }
 ////////////////////////////////////////////////////////
@@ -83,7 +70,7 @@ public class BoardController  {
     @RequestMapping("update")
     public String update(
          Board board) throws Exception {
-            if (boardService.update(board) == 0) {
+            if (boardDao.update(board) == 0) {
                 return "board/updatefail";
             } else {
                 return "redirect:list";

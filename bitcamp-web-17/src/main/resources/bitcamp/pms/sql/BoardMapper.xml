@@ -15,8 +15,10 @@
   <select id="selectList" 
           resultMap="BoardMap" 
           parameterType="map">
-    select bno, titl, cdt 
-    from pms2_board
+    select bno, titl, cdt from pms2_board
+             <if test="startIndex != null and pageSize != null">
+      limit #{startIndex}, #{pageSize}
+    </if>
     <!--  limit #{startIndex}, #{pageSize} -->
   </select>
   
@@ -46,4 +48,8 @@
   <delete id="delete" parameterType="int">
     delete from pms2_board where bno=#{value}
   </delete>
+    <!--카운트  -->
+    <select id="countAll" resultType="int">
+          select count(*) from pms2_board
+    </select>
 </mapper>

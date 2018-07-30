@@ -40,8 +40,9 @@ public class MemberService {
         int count = memberDao.update(member);
 
         // return memberDao.update(member);
-        if (count != 100)
-            throw new RuntimeException("일부로 예외 발생 !!!!");
+     //   if (count != 100)
+      //      throw new RuntimeException("일부로 예외 발생 !!!!");
+        
         return count;
     }
 
