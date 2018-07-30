@@ -92,7 +92,7 @@ public class MemberController {
         
         HashMap<String,Object> data = new HashMap<>();
         data.put("member",memberService.get(id));
-        System.out.println(memberService.get(id));
+        System.out.println(memberService.get(id)+"???");
         return data;
     }
 

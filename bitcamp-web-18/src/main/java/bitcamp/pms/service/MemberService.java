@@ -24,6 +24,8 @@ public class MemberService {
     }
 
     public Member get(String id) {
+        
+        System.out.println(id);
         return memberDao.selectOne(id);
     }
 

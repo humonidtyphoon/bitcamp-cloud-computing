@@ -2,46 +2,109 @@
 
 // 자주 사용할 함수를 라이브러리화 시킨다.
 let bit = function(value) {
-    var e;
+    var el = [];
     if (value instanceof HTMLElement) {
-        e = value;
+        el[0] = value;
     } else if (value.startsWith('<')) {
-        e = document.createElement(
+    	el[0] = document.createElement(
                 value.substr(1, value.length - 2));
     } else {
-        e = document.querySelector(value);
+        var list = document.querySelectorAll(value);
+        // selector 로 찾은 태그들은 빈배열로 옮긴다
+        for(var i=0;i<list.length;i++){
+        	el[i]= list[i];
+        	
+        }
     }
     
+    
+   // if(el.length == 0) return null;  // 못찾아도 빈배열을 추가하라
     // 개발자가 쓰기 좋은 함수를 추가해서 리턴하자!
-    e.html = function(value) {
+    
+    el.html = function(value) {
         if (arguments.length == 0) {
-            return e.innerHTML;
+            return el[0].innerHTML;
         }
-        e.innerHTML = value;
-        return e;
+        for(var e of el)
+        	e.innerHTML = value;
+        return el;
     };
     
-    e.append = function(child) {
-        e.appendChild(child);
-        return e;
+    el.append = function(child) {
+    	for(var e of el)
+    		e.appendChild(child);
+        return el;
     };
     
-    e.appendTo = function(parent) {
-        parent.appendChild(e);
-        return e;
+    el.appendTo = function(parent) {
+    	for(var e of el)
+    		parent[parent.length - 1].appendChild(e);
+        return el;
     };
     
-    e.attr = function(name, value) {
+    el.attr = function(name, value) {
         if (arguments.length < 2) {
-            return e.getAttribute(name);
+            return el[0].getAttribute(name); // 배열에 0번째만 리턴 한다.
         }
-        e.setAttribute(name, value);
+        for(var e of el)
+        	e.setAttribute(name, value);
+        return el;
     };
     
-    e.removeAttr = function(name) {
-        e.removeAttribute(name);
+    el.removeAttr = function(name) {
+    	for(var e of el)
+    		e.removeAttribute(name);
+    	return el;
     };
-    return e;
+    el.on = function(name, p2,p3){
+    	var selector =null;
+    	var handler =null;
+    	
+    	if(arguments.length ==2) handler =p2;
+    	
+    	if(arguments.length ==3){
+    		selector= p2;
+    		handler = p3;
+    	}
+    	
+    	for(var e of el){
+    		if(!selector){
+    			// selector 가 지정 되어 있징 않으면,
+    			// 해당 태그에 대해 이벤트가 발생했을때 핸들러를 호출한다.
+    			e.addEventListener(name, handler);
+    		} else{
+    			// selector 가 지정되어 있으면,
+    			// 핸들러를 호출하기 전에 selector 에 해당하는 것인지 검사하는
+    			// 함수가 먼저 호출되게 한다.
+    			e.addEventListener(name,function(event){
+    				//console.log('임의로 만든 핸들러를 호출한다.')
+    				// 현재 태그의 자신 태그중에 selector 조건에 해당되는
+    				// 자식 태그들을 찾는다.
+    				var selectorTargets = e.querySelectorAll(selector);
+    					//클릭하는 시점에 찾는 
+    				
+    				// 그 자식 태그들 중에 이이벤트가 발생된 태그를 찾는다.
+    				for(var target of selectorTargets){
+    					// 만약 이벤트가 발생된 태그와 일치하는 자식 태그가 있다면
+    					// 그때서야 핸들러를 호출해준다/
+    					// 속도가 느리다.
+    					if(event.target ==target){
+    						handler(event);
+    						break;
+    					}
+    				}
+    			});
+    		}
+    		
+    	}
+    	return el;
+    };
+    
+    el.click = function(handler){
+    	return el.on('click', handler);
+    };
+    
+    return el;
 };
 
 bit.parseQuery = function(url) {
