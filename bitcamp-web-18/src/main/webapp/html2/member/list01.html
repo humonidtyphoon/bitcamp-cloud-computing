@@ -44,42 +44,35 @@ eNextBtn.onclick = function() {
     loadList(data.page + 1, data.size);
 };
 
-function loadList(page, size) { 
-	$.getJSON('../../json/member/list',
-			{
-		          page:page,
-		          size:size
-			})
-			.done(
-	
-	
-			function(result){
-			    data = result; // 글로벌 변수에 저장해야 다른함수에서 사용가능
-		        tbody.html('');
-		        for (var item of data.list) {
-		            $("<tr>")
-		              .html(`<td><a href='#' data-id='${item.id}' 
-		                onclick='clickViewLink(event)'>${item.id}</a></td>
-		                <td>${item.email}</td>`)
-		              .appendTo(tbody);
-		        }
-		        
-		        $(ePageNo).innerHTML = data.page;
-		        if (data.page <= 1)
-		            $(ePrevBtn).attr('disabled', '');
-		        else 
-		            $(ePrevBtn).removeAttr('disabled');
-		        
-		        if (data.page >= data.totalPage)
-		            $(eNextBtn).attr('disabled', '');
-		        else
-		            $(eNextBtn).removeAttr('disabled');
-		    
-		       
-		
-		});
-	
-
+function loadList(page, size) {
+    $.ajax(`../../json/member/list?page=${page}&size=${size}`, {
+        dataType: 'json',
+        success: function(result) {
+            data = result;
+            tbody.html('');
+            for (var item of data.list) {
+                $("<tr>")
+                  .html(`<td><a href='#' data-id='${item.id}' 
+                    onclick='clickViewLink(event)'>${item.id}</a></td>
+                    <td>${item.email}</td>`)
+                  .appendTo(tbody);
+            }
+            
+            $(ePageNo).html(data.page);
+            if (data.page <= 1)
+                $(ePrevBtn).attr('disabled', '');
+            else 
+                $(ePrevBtn).removeAttr('disabled');
+            
+            if (data.page >= data.totalPage)
+                $(eNextBtn).attr('disabled', '');
+            else
+                $(eNextBtn).removeAttr('disabled');
+        },
+        error: function() {
+            alert("서버에서 오류 발생!");
+        }
+    });
 }
 
 function clickViewLink(event) {
@@ -91,3 +84,10 @@ function clickViewLink(event) {
 
 </body>
 </html>
+    
+    
+    
+    
+    
+    
+    

@@ -49,10 +49,7 @@ function loadList(page, size) {
 			{
 		          page:page,
 		          size:size
-			})
-			.done(
-	
-	
+			},
 			function(result){
 			    data = result; // 글로벌 변수에 저장해야 다른함수에서 사용가능
 		        tbody.html('');
