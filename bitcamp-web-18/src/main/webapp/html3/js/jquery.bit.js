@@ -1,7 +1,7 @@
 /**
  * 
  */
-function parseQuery(url){
+$.parseQuery= function(url){
 	
 	var paramMap = {};
 

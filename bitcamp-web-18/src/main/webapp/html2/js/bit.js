@@ -254,6 +254,7 @@ bit.post = function(url, p2, p3, p4) {
     }
     
     return bit.ajax(url, {
+    	method:'POST',
         dataType: dataType,
         data: data,
         success: success
