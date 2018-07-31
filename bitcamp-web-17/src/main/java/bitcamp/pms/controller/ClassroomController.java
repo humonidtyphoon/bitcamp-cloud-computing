@@ -61,11 +61,15 @@ public class ClassroomController {
     ///////////////////////////////update///////////////////////////////////
     @RequestMapping("update")
     public String update(Classroom classroom) throws Exception {
-        int count = classroomService.update(classroom);
-        if (count == 0) {
-            throw new Exception("해당 강의가 존재하지 않습니다.");
+    
+        
+        if (classroomService.update(classroom) == 0) {
+            return "classroom/updatefail";
+        } else {
+            return "redirect:list";
         }
-        return "redirect:list";
+       
+      
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////delete///////////////////////////////////

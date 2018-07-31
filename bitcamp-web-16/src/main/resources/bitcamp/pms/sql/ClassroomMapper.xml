@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.pms.dao.ClassroomDao">
 
-
     <resultMap type="Classroom" id="ClassroomMap">
     <id column="crno" property="no"/>
     <result column="titl" property="title"/>
@@ -26,13 +25,6 @@
     from pms2_classroom
     where crno=#{value}
   </select>
-  
-  <insert id="insert" parameterType="Classroom"
-          useGeneratedKeys="true" keyColumn="crno" keyProperty="no">
-    insert into pms2_classroom(titl,sdt,edt,room) 
-    values(#{title},#{startDate},#{endDate},#{room})
-  </insert>
-  
   <update id="update" parameterType="Classroom">
     update pms2_classroom set 
       titl=#{title}, 
@@ -42,7 +34,18 @@
     where crno=#{no}
   </update>
   
+  <insert id="insert" parameterType="Classroom"
+          useGeneratedKeys="true" keyColumn="crno" keyProperty="no">
+    insert into pms2_classroom(titl,sdt,edt,room) 
+    values(#{title},#{startDate},#{endDate},#{room})
+  </insert>
+  
+  
   <delete id="delete" parameterType="int">
     delete from pms2_classroom where crno=#{value}
   </delete>
+    <!--카운트  -->
+    <select id="countAll" resultType="int">
+          select count(*) from pms2_classroom
+    </select>
 </mapper>

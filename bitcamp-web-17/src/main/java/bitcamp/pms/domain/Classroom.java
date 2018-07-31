@@ -11,6 +11,7 @@ public class Classroom implements Serializable {
     private Date startDate;
     private Date endDate;
     private String room;
+    
     public int getNo() {
         return no;
     }

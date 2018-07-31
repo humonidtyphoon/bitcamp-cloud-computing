@@ -62,13 +62,15 @@ if (id == undefined) {// 입력 폼
 			}
 		});
 	$(eUpdateBtn).click(function(){
-	    $.post('../../json/member/update',
-	    {
+	    $.ajax('../../json/member/update',{
+	    	method:'POST',
+	    	dataType: 'json',
+	    	data:{
 	    		id:$(eId).val() ,
 	    		email:$(eEmail).val() ,
 	    		password:$(ePassword).val() 
 	    	},
-	    	function(data){
+	    	success :function(data){
 		       if(data.status == "success"){
 		    	   location.href =`list.html?page=${page}&size=${size}`;
 		       }else{
@@ -76,9 +78,12 @@ if (id == undefined) {// 입력 폼
 		    	   console.log(data.error);
 		       }
 	    		
-	    	},
-	    	'json');
+	    	}
 	    });
+	});
+		    
+
+		    
 		    
 	
 	   eDeleteBtn.onclick = function(){

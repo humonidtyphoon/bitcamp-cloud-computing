@@ -11,6 +11,7 @@ import bitcamp.pms.domain.Classroom;
 
 @Service
 public class ClassroomService {
+    
     @Autowired 
     ClassroomDao classroomDao;
 
@@ -26,9 +27,12 @@ public class ClassroomService {
     }
 
     public int update(Classroom classroom) {
-        System.out.println(classroom.toString());
+       int count = classroomDao.update(classroom);
+       System.out.println("///////////////////");
+       System.out.println(classroomDao.update(classroom)+"?????");
+       System.out.println(classroom.toString());
         
-        return classroomDao.update(classroom);
+        return count;
     }
 
     public int delete(int no) {
@@ -38,6 +42,7 @@ public class ClassroomService {
     public Classroom get(int no) {
         return classroomDao.selectOne(no);
     }
+    
     
     public int getTotalPage(int size) {
         int count = classroomDao.countAll();

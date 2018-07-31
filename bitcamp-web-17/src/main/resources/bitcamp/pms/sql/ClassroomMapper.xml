@@ -35,7 +35,7 @@
     values(#{title},#{startDate},#{endDate},#{room})
   </insert>
   
-  <update id="update" parameterType="Classroom">
+  <update id="update" parameterType="bitcamp.pms.domain.Classroom">
     update pms2_classroom set 
       titl=#{title}, 
       sdt=#{startDate}, 
