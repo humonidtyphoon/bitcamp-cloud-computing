@@ -8,17 +8,40 @@
 - app-servlet.xml, json-servlet.xml 파일 생성
 - web.xml에서 프로런트 컨트롤러에 IoC 컨테이너 설정 파일을 등록한다. 
 
-## 페이지 컨트롤러 추가 
-- *.json.MemberController추가
-- 페이지 컨트롤러를 @ResController 로 선언
-- 리턴 값으로 JSP URL 대신 데이터 객체를 리턴
+## 페이지 컨트롤러 추가
+- *.json.MemberController 추가
+- 페이지 컨트롤러를 @RestController로 선언
+- 리턴 값으로 JSP URL 대신 데이터를 객체를 리턴 
 
-### html
+### html 
 AJAX 기반 front-end 웹 페이지 작성
-- member/list.html : Ajax 기반 회원 목록 페이지 출력 HTML 생성
-- member/view.html : Ajax 기반 회원 상세 조희 페이지 출력 HTML 생성
+- html/member/list.html : AJAX 기반 회원 목록 페이지 출력 HTML 생성
+- html/member/view.html : AJAX 기반 회상 상세 조회 페이지 출력 HTML 생성
 - html/js/common.js : Query String 분석 함수 추가
 
 ### html2
-mini jQuery 라이브러리 작성
-- 
+mini jQuery(bit.js) 라이브러리 작성
+- DOM API 랩퍼 함수 작성
+- AJAX 랩퍼 함수 작성
+- Event 랩퍼 함수 작성
+
+### html3
+jQuery 적용
+- 기존에 bit.js 대신 jQuery 라이브러리를 적용한다.
+
+### html4
+Bootstrap 적용
+- UI에 부트스트랩 CSS 적용하기
+- css 폴더를 만들어 공통 CSS 관리하기
+
+### html5
+HTML과 JavaScript 분리하기
+- 유지보수를 쉽게 만들기 위해 HTML과 자바스크립트 코드를 분리한다.
+
+### html6
+모바일 웹 앱 배포준비
+- 외부 라이브러리를 (jQuery ,bootstrap 등) 모두 로컬에서 가져온다.
+
+Phonegap 을 이용하여 모바일 웹앱 만들기
+모바일 웹앱은 앱 안에 웹 브라우저 컴포넌트를 삽입하여
+-
