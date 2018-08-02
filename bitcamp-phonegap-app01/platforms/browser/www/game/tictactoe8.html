@@ -21,42 +21,51 @@
     float:left;
     display:block;
     width : 50px;
-    height: 50px;
+    height:0px;
     border:1px solid gray;
-    padding:10px;
+    padding-top:50px;
     text-align: center;
+    overflow:hidden;
+    
         }
+.cell-x{
+    background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9yxa0v5feHKIhmFzxl807lsRJ7Tp9nzUtnRskOaPfhHwHieH00g');
+    background-size :40px;
+    background-repeat: no-repeat;
+}
+.cell-y{
+    background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQstxJT2kAYRteUtOtodGeBJDT5nD4L-ubjUtq9EyDdELl-9smXeQ');
+    background-size :40px;
+    background-repeat: no-repeat;
+}
    </style>
 </head>
 <body>
 <h1>Tictactoe game</h1>
 
-<h2>1단계</h2>
-<ul>
-    <li>화면의 레이아웃을 설계한다.</li>
-</ul>
-<h2>3단계</h2>
-<ul>
-    <li>사용자 액션에 대한 이벤트를 처리한다.</li>
-</ul>
 
+<h2>8단계</h2>
+<ul>
+    <li>UI 입히기 </li>
+</ul>
+<!--data-pos-> 행렬 표현  -->
 <div id="cell-box">
-     <a class="cell">0</a>
-     <a class="cell">1</a>
-     <a class="cell">2</a>
-     <a class="cell">3</a>
-     <a class="cell">4</a>
-     <a class="cell">5</a>
-     <a class="cell">6</a>
-     <a class="cell">7</a>
-     <a class="cell">8</a>
+     <a data-pos="11" class="cell"></a>
+     <a data-pos="12" class="cell"></a>
+     <a data-pos="13" class="cell"></a>
+     <a data-pos="21" class="cell"></a>
+     <a data-pos="22" class="cell"></a>
+     <a data-pos="23" class="cell"></a>
+     <a data-pos="31" class="cell"></a>
+     <a data-pos="32" class="cell"></a>
+     <a data-pos="33" class="cell"></a>
 </div>
-<a>새 게임</a>
+<a id="new-game" class="btn btn-primary">새 게임</a>
 
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="tictactoe.js"></script>
+<script src="tictactoe8.js"></script>
 
 </body>
 </html>

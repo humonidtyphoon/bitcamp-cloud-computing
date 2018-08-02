@@ -63,7 +63,7 @@ game.onClickBoard = function(id)
         window.clearInterval(game.timer);
         document.getElementById("turn_label").innerText = "WINNER";
     }
-    else //No winner, update turn image
+    else 
     {
         document.getElementById("turn_image").src = nextImg;
     }
@@ -81,7 +81,6 @@ game.comPlay = function(){
         do {
         	computer = game.randomize();
         } while ($("#" + computer).html() != "")
-        //return $("#"+computer).html("O");
         return document.getElementById(id).src = newImg;
     }
     else{

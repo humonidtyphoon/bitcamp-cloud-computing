@@ -1,0 +1,32 @@
+#turnStatus{
+    width: 220px;
+    height: 50px;
+    margin: auto 0px;
+    line-height: 50px;
+    font-family: sans-serif;
+    color: #a9a9a9;
+    font-weight: bolder;
+}
+
+#mainBoard{
+    width: 560px;
+    height: 560px;
+    padding: 0px;
+    border: 0px;
+    margin: auto 0px;
+}
+
+.box{
+    width: 180px;
+    height: 180px;
+    border: solid 1px silver;
+    padding: 0px;
+    margin: auto 0px;
+    float: left;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 150px;
+    text-align: center;
+    line-height: 180px;
+    color: black;
+}
