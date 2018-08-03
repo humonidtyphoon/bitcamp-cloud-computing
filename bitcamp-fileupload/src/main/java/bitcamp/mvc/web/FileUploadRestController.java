@@ -21,18 +21,17 @@ public class FileUploadRestController {
     @RequestMapping("/upload01")
     public Object upload01(
             String name, 
-            int age, 
+            String age, 
             MultipartFile[] files
           ) {
-
+        System.out.println("upload01()...호출됨");
+        
+        
         HashMap<String, Object> result = new HashMap<>();
-        
-        
         result.put("name", name);
         result.put("age", age);
         ArrayList<String> filenames = new ArrayList<>();
         result.put("filenames",filenames);
-        
         
         try {
             for(MultipartFile file : files) {
@@ -42,13 +41,11 @@ public class FileUploadRestController {
             file.transferTo(new File(path));
             filenames.add(newfilename);
             
-            
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-    
         return result;
     }
 }
