@@ -25,11 +25,14 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="../mvc/exam11_2/upload01" multiple>
+       data-url="../mvc/ajax/upload01" multiple>
 
 <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
+<hr>
+<div id="imgList"></div>
+
 
 <script src='node_modules/jquery/dist/jquery.js'></script>
 <script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
@@ -37,14 +40,18 @@
 <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
-
+var jqImgList = $('#imgList');
 $('#fileupload').fileupload({
     dataType: 'json',
     done: function (e, data) {
       console.log('done()...');
       console.log(data.result);
-      //var file = data.result.fileList[0];
-      //$('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
+      setTimeout(()=>{
+          //$('#photoImg').attr("src", "../files/" + data.result.filename);
+          $('<img>').attr('src','../files/'+data.result.filenames[0])
+            .css('height','200px')          
+          .appendTo(jqImgList);
+          },5000);
     },
     progressall: function (e, data) { // 업로드 중간마다 상태를 보고하기 위해 호출된다.
       console.log('progressall()...', data.loaded, data.total);
@@ -54,7 +61,7 @@ $('#fileupload').fileupload({
             progress + '%'
         );
     }
-});
+}); 
 
 </script>
 
