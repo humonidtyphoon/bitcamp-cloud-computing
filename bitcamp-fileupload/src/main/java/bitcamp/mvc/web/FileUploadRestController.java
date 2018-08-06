@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import net.coobird.thumbnailator.Thumbnails;
 //Ajax 로 파일 업로드
 @RestController
 @RequestMapping("/ajax")
@@ -48,6 +50,54 @@ public class FileUploadRestController {
         
         return result;
     }
+    @RequestMapping("/upload02")
+    public Object upload02(
+            String name, 
+            String age, 
+            MultipartFile[] files
+          ) {
+        System.out.println("upload02()...호출됨");
+        
+        
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("age", age);
+        ArrayList<String> filenames = new ArrayList<>();
+        result.put("filenames",filenames);
+        
+        try {
+            for(MultipartFile file : files) {
+             if(file.isEmpty()) continue;   
+            String newfilename = UUID.randomUUID().toString(); 
+            String path = sc.getRealPath("/files/" + newfilename);
+            file.transferTo(new File(path));
+            filenames.add(newfilename);
+            
+            Thumbnails.of(path)
+                    .size(20,20)
+                    .outputFormat("jpg")
+                    .toFile(path+"_50x50");
+            
+            Thumbnails.of(path)
+            .size(80,80)
+            .outputFormat("jpg")
+            .toFile(path+"_80x80");
+
+            Thumbnails.of(path)
+            .size(120,120)
+            .outputFormat("jpg")
+            .toFile(path+"_120x120");
+            
+            
+            
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return result;
+    
+}
 }
 
 
