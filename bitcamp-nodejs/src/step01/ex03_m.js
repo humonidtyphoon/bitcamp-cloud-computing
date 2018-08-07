@@ -4,7 +4,7 @@
 
 function plus(a,b){return a+b}
 function minus(a,b){return a-b}
-function mutiple(a,b){return a*b}
+function multiple(a,b){return a*b}
 function divide(a,b){return a/b}
 
 
@@ -18,5 +18,5 @@ module.exports.minus = minus;
 exports.mutiple = mutiple;
 exports.divide = divide;
 
-//결론 
+//결론
 // => module 에서 리턴하고 싶다면 exports객체 담아서 사용!!!
