@@ -29,6 +29,7 @@ con.connect(function(err){
 //  var mid ='user0001';
   var mid ="user0001' or 1=1 or ''='";
 // => in - parameter 방법을 사용하라!!
+//
   con.query(
     `delete from pms2_member
       where mid =?`,
