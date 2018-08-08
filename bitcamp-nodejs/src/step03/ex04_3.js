@@ -34,36 +34,31 @@ const server = http.createServer((req,res)=>{
   });
 
 
-  if(urlInfo.pathname !=='/member/list'){
+  if(urlInfo.pathname !=='/member/update'){
     res.end('해당 URL 지원XX!!')
     return;
   }
 
 
-  var pageNo =1;
-  var PageSize =3;
 
-  if(urlInfo.query.pageNo){
-    pageNo =parseInt(urlInfo.query.pageNo);
-  }
-  if(urlInfo.query.pageSize){
-    pageSize =parseInt(urlInfo.query.pageSize);
-  }
 
-  var startIndex = (pageNo -1) * pageSize;
 
-  pool.query('select*from pms2_member limit ?,?',
-    [startIndex,pageSize],
+  var email=urlInfo.query.email
+  var mid =urlInfo.query.mid
+//  var pwd =urlInfo.query.pwd
+
+
+
+  pool.query(
+      `update pms2_member set email=? where mid =?`,
+        [email,mid],
     function(err,results){
           if(err){
             res.end('DB 조회중.... 예외가 발생 했다.')
             return;
           }
-          for(var row of results){
-
-              res.write(`${row.email},${row.mid},${row.pwd}\n`);
-            }
-            res.end();
+          res.write(`${email},${mid}`)
+          res.end('회원업데이트 완료');
   });
   //res.write(`${pageNo} ${pageSize}  ${startIndex}\n`)
 

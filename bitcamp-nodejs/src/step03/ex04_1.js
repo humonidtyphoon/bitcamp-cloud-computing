@@ -39,7 +39,7 @@ const server = http.createServer((req,res)=>{
 
 
   var pageNo =1;
-  var PageSize =3;
+  var pageSize =3;
 
   if(urlInfo.query.pageNo){
     pageNo =parseInt(urlInfo.query.pageNo);

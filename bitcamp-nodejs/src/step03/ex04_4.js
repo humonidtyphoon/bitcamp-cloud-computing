@@ -5,7 +5,7 @@
 
 // http:// localhost:8080/member/delete?memberId=user100
 //[출력결과]
-// 삭제 성공 입니다. 
+// 삭제 성공 입니다.
 const http = require('http')
 const url = require('url')
 const mysql = require('mysql');
@@ -34,36 +34,25 @@ const server = http.createServer((req,res)=>{
   });
 
 
-  if(urlInfo.pathname !=='/member/list'){
+  if(urlInfo.pathname !=='/member/delete'){
     res.end('해당 URL 지원XX!!')
     return;
   }
+  var email=urlInfo.query.email
 
+  var mid =urlInfo.query.mid
 
-  var pageNo =1;
-  var PageSize =3;
-
-  if(urlInfo.query.pageNo){
-    pageNo =parseInt(urlInfo.query.pageNo);
-  }
-  if(urlInfo.query.pageSize){
-    pageSize =parseInt(urlInfo.query.pageSize);
-  }
-
-  var startIndex = (pageNo -1) * pageSize;
-
-  pool.query('select*from pms2_member limit ?,?',
-    [startIndex,pageSize],
+  pool.query(
+    `delete from pms2_member
+      where mid =?`,
+      [mid], // ?(in 파라미터)개수 만큼 배열에 값을 담아 놓으면된다.
     function(err,results){
           if(err){
             res.end('DB 조회중.... 예외가 발생 했다.')
             return;
           }
-          for(var row of results){
-
-              res.write(`${row.email},${row.mid},${row.pwd}\n`);
-            }
-            res.end();
+            res.write(`${email},${mid}`)
+            res.end('삭제완료');
   });
   //res.write(`${pageNo} ${pageSize}  ${startIndex}\n`)
 

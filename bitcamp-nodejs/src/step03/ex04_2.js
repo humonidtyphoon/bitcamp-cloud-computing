@@ -34,40 +34,34 @@ const server = http.createServer((req,res)=>{
   });
 
 
-  if(urlInfo.pathname !=='/member/list'){
+  if(urlInfo.pathname !=='/member/add'){
     res.end('해당 URL 지원XX!!')
     return;
   }
 
 
-  var pageNo =1;
-  var PageSize =3;
 
-  if(urlInfo.query.pageNo){
-    pageNo =parseInt(urlInfo.query.pageNo);
-  }
-  if(urlInfo.query.pageSize){
-    pageSize =parseInt(urlInfo.query.pageSize);
-  }
+  var email=urlInfo.query.email
+  var mid =urlInfo.query.mid
+  var pwd =urlInfo.query.pwd
+  pool.query(
+    `insert into pms2_member(email,mid,pwd)
+            values(?,?,password(?))`,
+            [email,mid,pwd],
+            function(err,results){
+                  if(err){
+                    res.end('DB 조회중.... 예외가 발생 했다.')
+                    return;
+                  }
 
-  var startIndex = (pageNo -1) * pageSize;
+                    res.end('회원등록 성공');
+              });
+          });
 
-  pool.query('select*from pms2_member limit ?,?',
-    [startIndex,pageSize],
-    function(err,results){
-          if(err){
-            res.end('DB 조회중.... 예외가 발생 했다.')
-            return;
-          }
-          for(var row of results){
 
-              res.write(`${row.email},${row.mid},${row.pwd}\n`);
-            }
-            res.end();
-  });
   //res.write(`${pageNo} ${pageSize}  ${startIndex}\n`)
 
-});
+
 server.listen(8000,()=>{
   console.log('서버 시작 !!!');
 });
