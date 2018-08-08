@@ -41,16 +41,13 @@ const server = http.createServer((req,res)=>{
 
 
 
-  var email=urlInfo.query.email
-  var mid =urlInfo.query.mid
-  var pwd =urlInfo.query.pwd
   pool.query(
-    `insert into pms2_member(email,mid,pwd)
+    `insert into pms2_member(email,mid,pwd)\
             values(?,?,password(?))`,
-            [email,mid,pwd],
+            [urlInfo.query.email,urlInfo.query.mid,urlInfo.query.pwd],
             function(err,results){
                   if(err){
-                    res.end('DB 조회중.... 예외가 발생 했다.')
+                    res.end('DB 입력중 .... 예외가 발생 했다.')
                     return;
                   }
 
