@@ -1,135 +1,116 @@
+// 주제: 여러 개의 요청 처리하기 - 회원 목록조회/등록/변경/삭제하기
+// [실행 URL]
+// => http://localhost:8000/member/delete?id=user100
+// [출력 결과]
+// 삭제 성공입니다.
 
 
-// 주제:SQL 여러개의 요청 처리하기 - 회원 목록/ 등록/ 변경 / 삭제하기 한파일에
-
-
-// http:// localhost:8080/member/delete?memberId=user100
-//[출력결과]
-// 삭제 성공 입니다.
 const http = require('http')
 const url = require('url')
 const mysql = require('mysql');
 
-
-
-
 var pool = mysql.createPool({
-  connectionLimit:10,
-  host:'13.125.9.121',
-
-  database:'studydb',
-  user:'study',
-  password:'1111'
+    connectionLimit: 10,
+    host: '13.209.35.254',
+    //port: '3306',
+    database: 'studydb',
+    user: 'study',
+    password: '1111'
 });
 
-const server = http.createServer((req,res)=>{
-  var urlInfo = url.parse(req.url,true);
-  console.log("요청 받았습니다.");
-  if(urlInfo.pathname === '/favicon.ico'){
-    res.end();
-    return;
-  }
 
+const server = http.createServer((req, res) => {
+    var urlInfo = url.parse(req.url, true);
 
+    if (urlInfo.pathname === '/favicon.ico') {
+        res.end();
+        return;
+    }
 
-  res.writeHead(200,{
-    'Content-Type':'text/plain;charset=UTF8'
-  });
-
-/*
-  if(urlInfo.pathname !=='/member'){
-    res.end('해당 URL 지원XX!!')
-    return;
-  }
-*/
-
-  var pageNo =1;
-  var pageSize =3;
-  var email=urlInfo.query.email
-  var mid =urlInfo.query.mid
-  var pwd =urlInfo.query.pwd
-
-  if(urlInfo.query.pageNo){
-    pageNo =parseInt(urlInfo.query.pageNo);
-  }
-  if(urlInfo.query.pageSize){
-    pageSize =parseInt(urlInfo.query.pageSize);
-  }
-
-  var startIndex = (pageNo -1) * pageSize;
-
-
-
-    if(urlInfo.pathname ==='/member/list'){
-
-
-    pool.query('select*from pms2_member limit ?,?',
-      [startIndex,pageSize],
-      function(err,results){
-            if(err){
-              res.end('DB 조회중.... 예외가 발생 했다.')
-              return;
-            }
-            for(var row of results){
-
-                res.write(`${row.email},${row.mid},${row.pwd}\n`);
-              }
-              res.end();
-
+    res.writeHead(200, {
+        'Content-Type': 'text/plain;charset=UTF-8'
     });
 
-  }
-  else if(urlInfo.pathname ==='/member/add'){
-  //list con end
-      pool.query(
-        `insert into pms2_member(email,mid,pwd)
-                values(?,?,password(?))`,
-                [email,mid,pwd],
-                function(err,results){
-                      if(err){
-                        res.end('DB 조회중.... 예외가 발생 했다.')
-                        return;
-                      }
+    if (urlInfo.pathname === '/member/list') {
+        var pageNo = 1;
+        var pageSize = 3;
 
-                        res.end('회원등록 성공');
+        if (urlInfo.query.pageNo) {
+            pageNo = parseInt(urlInfo.query.pageNo)
+        }
+        if (urlInfo.query.pageSize) {
+            pageSize = parseInt(urlInfo.query.pageSize)
+        }
 
+        var startIndex = (pageNo - 1) * pageSize;
 
-                  });
+        pool.query('select mid, email from pms2_member limit ?, ?',
+                [startIndex, pageSize],
+                function(err, results) {
+            if (err) {
+                res.end('DB 조회 중 예외 발생!')
+                return;
             }
-else if(urlInfo.pathname ==='/member/update'){
 
+            for (var row of results) {
+                res.write(`${row.email}, ${row.mid}\n`);
+            }
+            res.end();
+        });
+
+    } else if (urlInfo.pathname === '/member/add') {
         pool.query(
-            `update pms2_member set email=? where mid =?`,
-                        [email,mid],
-                function(err,results){
-                    if(err){
-                        res.end('DB 조회중.... 예외가 발생 했다.')
-                          return;
-                        }
-                      res.end('회원업데이트 완료');
-
-
-                  });
+                'insert into pms2_member(mid,email,pwd)\
+                values(?, ?, password(?))',
+            [urlInfo.query.id, urlInfo.query.email, urlInfo.query.password],
+            function(err, results) {
+                if (err) {
+                    res.end('데이터 처리 중 예외 발생!')
+                    return;
                 }
-    else if(urlInfo.pathname ==='/member/delete'){
-              pool.query(
-                `delete from pms2_member
-                  where mid =?`,
-                  [mid], // ?(in 파라미터)개수 만큼 배열에 값을 담아 놓으면된다.
-                function(err,results){
-                      if(err){
-                        res.end('DB 조회중.... 예외가 발생 했다.')
-                        return;
-                      }
-                        res.write(`${email},${mid}`)
-                        res.end('삭제완료');
-              });
-            }
 
+                res.write('등록성공!\n')
+                res.end();
+        });
 
-      
-            });
+    } else if (urlInfo.pathname === '/member/update') {
+        pool.query(
+                'update pms2_member set\
+                 email=?,\
+                 pwd=?\
+                 where mid=?',
+            [urlInfo.query.email,
+             urlInfo.query.password,
+             urlInfo.query.id],
+            function(err, results) {
+                if (err) {
+                    res.end('DB 조회 중 예외 발생!')
+                    return;
+                }
 
-server.listen(8000,()=>{
-  console.log('서버 시작 !!!');
+                res.write('변경 성공!')
+                res.end();
+        });
+
+    } else if (urlInfo.pathname === '/member/delete') {
+        pool.query('delete from pms2_member where mid=?',
+            [urlInfo.query.id],
+            function(err, results) {
+                if (err) {
+                    res.end('DB 조회 중 예외 발생!')
+                    return;
+                }
+
+                res.write('삭제 성공!')
+                res.end();
+        });
+    } else {
+        res.end('해당 URL을 지원하지 않습니다!');
+        return;
+    }
+
 });
+
+server.listen(8000, () => {
+    console.log('서버가 시작됨!')
+})

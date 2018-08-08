@@ -1,11 +1,12 @@
-// 주제:SQL 여러개의 요청 처리하기 - 조건문 없애고 URL 과 함수를 자동 연결하기
-// => 요청 핸들러 (요청이 들어 왔을 떄 호출되는 함수) 를 좀더 관리하기 쉽게
-//    등록을 자동화 한다.
+// 주제:코드를 모듈로 분리 ! - 요청 핸들러를 관리하는 코드 분리
+// =>
 
 
 const http = require('http')
 const url = require('url')
 const mysql = require('mysql');
+const express = require('./express01');
+
 
 var pool = mysql.createPool({
     connectionLimit: 10,
@@ -16,15 +17,7 @@ var pool = mysql.createPool({
     password: '1111'
 });
 
-const express = {
-  reqMap: {},
-  add(url,handler){
-    this.reqMap[url] = handler;
-  },
-  getHandler(url){
-    return this.reqMap[url];
-  }
-}
+
 
 const server = http.createServer((req, res) => {
     var urlInfo = url.parse(req.url, true);
@@ -140,4 +133,4 @@ express.add('/hello',(urlInfo,req,res)=>{
   res.write(`${urlInfo.query.name}님 안녕하세요!!`)
   res.end();
 });
-//  express 끝 
+//  express 끝
