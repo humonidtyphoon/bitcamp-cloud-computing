@@ -30,7 +30,7 @@ app.engine('html',consolidate.handlebars)
 app.set('view engine','html')
 // 템플릿 파일이 있는 디렉토리 경로를 지정한다.
 
-app.set('views',path.join(__dirname,'templates'))
+app.set('views',path.join(__dirname,'template'))
 
 // /member/*" URL 을 처리할 라이터와 "/team/*" URL 을 처리할 라우터를 로딩한다.
 
@@ -38,7 +38,7 @@ app.set('views',path.join(__dirname,'templates'))
 // -> 라우터를 Express 의 웹 서버에 등록한다.
 
 app.use('/member',require('./member'))
-
+app.use('/team',require('./team'))
 
 
 
@@ -48,6 +48,10 @@ app.get('/hello',(req,res)=>{
   res.write('hello');
 
   res.end();
+})
+
+app.get('/team/list',(req,res)=>{
+  res.render('template01',req.query)
 })
 
 
