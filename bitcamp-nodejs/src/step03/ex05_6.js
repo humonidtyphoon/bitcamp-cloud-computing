@@ -5,7 +5,7 @@ const express = require('express');
 
 var pool = mysql.createPool({
     connectionLimit: 10,
-    host: '13.209.35.254',
+    host: '13.125.9.121',
     //port: '3306',
     database: 'studydb',
     user: 'study',
