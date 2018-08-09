@@ -1,7 +1,7 @@
 "use strict"
 
-var trTempleteSrc= $('#tr-templete-src').text();
-var trTempleteFn = Handlebars.compile(trTempleteSrc);
+var trTemplateSrc= $('#tr-template-src').text();
+var trTemplateFn = Handlebars.compile(trTemplateSrc);
 
 var {page, size} = $.parseQuery(location.href);
 
@@ -31,7 +31,7 @@ function loadList(page, size) {
      .done(function(result) {
        data = result;
        
-       var trListHTML = trTempleteFn({list: data.list});
+       var trListHTML = trTemplateFn({list: data.list});
        tbody.html(trListHTML);
       
 
