@@ -1,0 +1,16 @@
+@charset "UTF-8";
+div.container {
+    width:1000px;
+}
+table{
+	float: left;
+}	
+ .search-container {
+  float: right;
+}
+#main{
+	float: right;
+}
+img{
+	   width:10px;
+}
