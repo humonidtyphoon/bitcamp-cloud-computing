@@ -15,5 +15,13 @@ public class Order {
     
     // 여러개를 포함할 경우 배열이나 Collection 객체로 구현한다. 
     List<Product> products;
+
+    public Order(Customer customer, List<Product> products) {
+        super();
+        this.customer = customer;
+        this.products = products;
+    }
+    
+    
     
 }
