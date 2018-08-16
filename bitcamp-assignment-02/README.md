@@ -34,3 +34,28 @@
     - actor 식별
     - actor 를 통해  Use Case 식별
 - Use Case - 명세서 작성
+    -회원가입탈퇴 명세서 작성
+    -회원인증 명세서 작성
+    -명함관리 명세서 작성
+-
+
+#### 2단계 - 프로젝트 준비
+- 프로젝트 폴터 생성
+    -'mkdir bitcamp-assignment-02
+    
+- gradle 설정파일준비
+  
+- 소스디렉토리 준비
+     -src/main/java
+     -src/main/resourecs
+     -src/main/webapps
+     -src/test/java
+     -src/test/resourecs
+     
+- 이클립스 설정 파일준비
+  -'bulid.gradle'파일편집
+   -플러그인 추가:java,eclipse-wtp,war
+   
+####
+   
+     

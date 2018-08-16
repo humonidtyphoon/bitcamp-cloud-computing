@@ -10,6 +10,8 @@ plugins {
     id 'war'
 }
 
+
+/*
 compileJava {
     options.encoding = "UTF-8"
 }
@@ -73,3 +75,4 @@ dependencies {
 repositories {
     jcenter()
 }
+*/
