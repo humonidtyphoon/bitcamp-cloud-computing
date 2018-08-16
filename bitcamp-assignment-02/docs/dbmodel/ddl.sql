@@ -1,0 +1,145 @@
+
+-- 회원
+CREATE TABLE "MY_SCHEMA"."P2_MEMB" (
+	"MNO"   INTEGER      NOT NULL, -- 회원번호
+	"EMAIL" VARCHAR(40)  NOT NULL, -- 이메일
+	"NAME"  VARCHAR(50)  NOT NULL, -- 이름
+	"PWD"   VARCHAR(100) NOT NULL  -- 암호
+);
+
+-- 회원 기본키
+CREATE UNIQUE INDEX "MY_SCHEMA"."PK_P2_MEMB"
+	ON "MY_SCHEMA"."P2_MEMB" ( -- 회원
+		"MNO" ASC -- 회원번호
+	);
+
+-- 회원 유니크 인덱스
+CREATE UNIQUE INDEX "MY_SCHEMA"."UIX_P2_MEMB"
+	ON "MY_SCHEMA"."P2_MEMB" ( -- 회원
+		"EMAIL" ASC -- 이메일
+	);
+
+-- 회원
+ALTER TABLE "MY_SCHEMA"."P2_MEMB"
+	ADD
+		CONSTRAINT "PK_P2_MEMB" -- 회원 기본키
+		PRIMARY KEY (
+			"MNO" -- 회원번호
+		);
+
+-- 회원
+ALTER TABLE "MY_SCHEMA"."P2_MEMB"
+	ADD
+		CONSTRAINT "UK_P2_MEMB" -- 회원 유니크 제약
+		UNIQUE (
+			"EMAIL" -- 이메일
+		);
+
+-- 회원
+COMMENT ON TABLE "MY_SCHEMA"."P2_MEMB" IS '회원';
+
+-- 회원번호
+COMMENT ON COLUMN "MY_SCHEMA"."P2_MEMB"."MNO" IS '회원번호';
+
+-- 이메일
+COMMENT ON COLUMN "MY_SCHEMA"."P2_MEMB"."EMAIL" IS '이메일';
+
+-- 이름
+COMMENT ON COLUMN "MY_SCHEMA"."P2_MEMB"."NAME" IS '이름';
+
+-- 암호
+COMMENT ON COLUMN "MY_SCHEMA"."P2_MEMB"."PWD" IS '암호';
+
+-- 회원 기본키
+COMMENT ON INDEX "MY_SCHEMA"."PK_P2_MEMB" IS '회원 기본키';
+
+-- 회원 유니크 인덱스
+COMMENT ON INDEX "MY_SCHEMA"."UIX_P2_MEMB" IS '회원 유니크 인덱스';
+
+-- 회원 기본키
+COMMENT ON CONSTRAINT "MY_SCHEMA"."P2_MEMB"."PK_P2_MEMB" IS '회원 기본키';
+
+-- 회원 유니크 제약
+COMMENT ON CONSTRAINT "MY_SCHEMA"."P2_MEMB"."UK_P2_MEMB" IS '회원 유니크 제약';
+
+-- 명함
+CREATE TABLE "MY_SCHEMA"."P2_BIZCARD" (
+	"BCNO"  INTEGER     NOT NULL, -- 명함번호
+	"MNO"   INTEGER     NOT NULL, -- 회원번호
+	"NAME"  VARCHAR(50) NOT NULL, -- 이름
+	"MTEL"  VARCHAR(30) NULL,     -- 휴대전화
+	"TEL"   VARCHAR(30) NULL,     -- 일반전화
+	"FAX"   VARCHAR(30) NULL,     -- 팩스
+	"EMAIL" VARCHAR(40) NULL,     -- 이메일
+	"MEMO"  TEXT        NULL      -- 메모
+);
+
+-- 명함 기본키
+CREATE UNIQUE INDEX "MY_SCHEMA"."PK_P2_BIZCARD"
+	ON "MY_SCHEMA"."P2_BIZCARD" ( -- 명함
+		"BCNO" ASC -- 명함번호
+	);
+
+-- 명함 인덱스
+CREATE INDEX "MY_SCHEMA"."IX_P2_BIZCARD"
+	ON "MY_SCHEMA"."P2_BIZCARD"( -- 명함
+		"NAME" ASC -- 이름
+	);
+
+-- 명함
+ALTER TABLE "MY_SCHEMA"."P2_BIZCARD"
+	ADD
+		CONSTRAINT "PK_P2_BIZCARD" -- 명함 기본키
+		PRIMARY KEY (
+			"BCNO" -- 명함번호
+		);
+
+-- 명함
+COMMENT ON TABLE "MY_SCHEMA"."P2_BIZCARD" IS '명함';
+
+-- 명함번호
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."BCNO" IS '명함번호';
+
+-- 회원번호
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."MNO" IS '회원번호';
+
+-- 이름
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."NAME" IS '이름';
+
+-- 휴대전화
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."MTEL" IS '휴대전화';
+
+-- 일반전화
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."TEL" IS '일반전화';
+
+-- 팩스
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."FAX" IS '팩스';
+
+-- 이메일
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."EMAIL" IS '이메일';
+
+-- 메모
+COMMENT ON COLUMN "MY_SCHEMA"."P2_BIZCARD"."MEMO" IS '메모';
+
+-- 명함 기본키
+COMMENT ON INDEX "MY_SCHEMA"."PK_P2_BIZCARD" IS '명함 기본키';
+
+-- 명함 인덱스
+COMMENT ON INDEX "MY_SCHEMA"."IX_P2_BIZCARD" IS '명함 인덱스';
+
+-- 명함 기본키
+COMMENT ON CONSTRAINT "MY_SCHEMA"."P2_BIZCARD"."PK_P2_BIZCARD" IS '명함 기본키';
+
+-- 명함
+ALTER TABLE "MY_SCHEMA"."P2_BIZCARD"
+	ADD
+		CONSTRAINT "FK_P2_MEMB_TO_P2_BIZCARD" -- 회원 -> 명함
+		FOREIGN KEY (
+			"MNO" -- 회원번호
+		)
+		REFERENCES "MY_SCHEMA"."P2_MEMB" ( -- 회원
+			"MNO" -- 회원번호
+		);
+
+-- 회원 -> 명함
+COMMENT ON CONSTRAINT "MY_SCHEMA"."P2_BIZCARD"."FK_P2_MEMB_TO_P2_BIZCARD" IS '회원 -> 명함';
