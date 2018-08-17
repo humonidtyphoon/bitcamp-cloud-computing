@@ -6,8 +6,10 @@ $('#addBtn').click(() => {
         'name': $('#fName').val(),
         'password': $('#fPassword').val()
     }, (result) => {
+    	
     	if(result.status ==='success'){
-    		location.hrfe='signIn.html'
+    		console.log("성공")
+    		location.href='signIn.html'
     	}else{
     		alert('실패');
     		console.log(result.message)
