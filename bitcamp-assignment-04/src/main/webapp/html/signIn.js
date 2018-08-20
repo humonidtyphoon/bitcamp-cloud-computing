@@ -21,4 +21,3 @@ $('#loginBtn').click(() => {
 });
 
 
-console.log('===========>');

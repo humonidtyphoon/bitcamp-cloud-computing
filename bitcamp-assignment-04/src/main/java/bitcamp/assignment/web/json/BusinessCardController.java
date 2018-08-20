@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,5 +67,54 @@ public class BusinessCardController {
        
         return result;
         
+    }
+    
+    @PostMapping("add")
+    public Object add(
+            BusinessCard bizcard, 
+            HttpSession session) {
+        
+        Member loginUser = 
+                (Member)session.getAttribute("loginUser");
+        
+        bizcard.setMemberNo(loginUser.getNo());
+        
+        bizcardService.add(bizcard);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
+    }
+    
+    @PostMapping("update")
+    public Object update(
+            BusinessCard bizcard, 
+            HttpSession session) {
+        
+        Member loginUser = 
+                (Member)session.getAttribute("loginUser");
+        
+        bizcard.setMemberNo(loginUser.getNo());
+        
+        bizcardService.update(bizcard);
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
+    }
+    
+    @GetMapping("delete")
+    public Object delete(
+            int no, 
+            HttpSession session) {
+        
+        Member loginUser = 
+                (Member)session.getAttribute("loginUser");
+        
+        bizcardService.delete(no, loginUser.getNo());
+        
+        HashMap<String,Object> result = new HashMap<>();
+        result.put("status", "success");
+        return result;
     }
 }

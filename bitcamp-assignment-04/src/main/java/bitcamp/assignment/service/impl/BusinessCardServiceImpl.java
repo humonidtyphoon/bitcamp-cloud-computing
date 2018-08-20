@@ -9,7 +9,6 @@ import bitcamp.assignment.domain.BusinessCard;
 import bitcamp.assignment.repository.BusinessCardRepository;
 import bitcamp.assignment.service.BusinessCardService;
 
-
 @Service
 public class BusinessCardServiceImpl 
     implements BusinessCardService {
@@ -28,13 +27,28 @@ public class BusinessCardServiceImpl
     
     @Override
     public BusinessCard get(int cardNo, int memberNo) {
-        HashMap<String, Object> params = new HashMap<>();
-        
+        HashMap<String,Object> params = new HashMap<>();
         params.put("cardNo", cardNo);
-        params.put("memberNo",memberNo);
-        
-        
-        
+        params.put("memberNo", memberNo);
         return bizcardRepository.findByCardNoAndMemberNo(params);
     }
+    
+    @Override
+    public int add(BusinessCard bizcard) {
+        return bizcardRepository.insert(bizcard);
+    }
+    
+    @Override
+    public int update(BusinessCard bizcard) {
+        return bizcardRepository.update(bizcard);
+    }
+    
+    @Override
+    public int delete(int cardNo, int memberNo) {
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("cardNo", cardNo);
+        params.put("memberNo", memberNo);
+        return bizcardRepository.delete(params);
+    }
+    
 }
