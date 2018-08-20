@@ -1,8 +1,8 @@
 package bitcamp.assignment.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bitcamp.assignment.domain.BusinessCard;
@@ -24,5 +24,17 @@ public class BusinessCardServiceImpl
     @Override
     public List<BusinessCard> list(int no) {
         return bizcardRepository.findByMemberNo(no);
+    }
+    
+    @Override
+    public BusinessCard get(int cardNo, int memberNo) {
+        HashMap<String, Object> params = new HashMap<>();
+        
+        params.put("cardNo", cardNo);
+        params.put("memberNo",memberNo);
+        
+        
+        
+        return bizcardRepository.findByCardNoAndMemberNo(params);
     }
 }
