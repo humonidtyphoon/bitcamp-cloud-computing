@@ -3,7 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.assignment.repository.MemberRepository">
-
+    
+    <!--프라이머리 키 = id 라고 지정해준다.  -->
+    <resultMap type="member" id="memberMap">
+         <id column="MNO" property="no"/>
+         <result column="NAME" property="name"/>
+         <result column="EMAIL" property="email"/>
+         <result column="PWD" property="password"/>
+       </resultMap>
   <insert id="insert" parameterType="Member">
     insert into P2_MEMB(EMAIL,NAME,PWD) 
     values(#{email},#{name},password(#{password}))
@@ -11,9 +18,9 @@
  
  <select id="findByEmailAndPassword"
   parameterType="map"
-  resultType="member"
+  resultMap="memberMap"
   >
-    select EMAIL, NAME
+    select MNO,EMAIL, NAME
     from P2_MEMB
     where EMAIL=#{email} and PWD =password(#{password})
  

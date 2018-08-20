@@ -5,14 +5,12 @@ import java.io.Serializable;
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
     
+    protected int no;
     protected String name;
     protected String email;
     protected String password;
     
-    @Override
-    public String toString() {
-        return "Member [name=" + name + ", email=" + email + ", password=" + password + "]";
-    }
+ 
     public String getName() {
         return name;
     }
@@ -28,8 +26,18 @@ public class Member implements Serializable {
     public String getPassword() {
         return password;
     }
+    public int getNo() {
+        return no;
+    }
+    public void setNo(int no) {
+        this.no = no;
+    }
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + "]";
     }
     
     

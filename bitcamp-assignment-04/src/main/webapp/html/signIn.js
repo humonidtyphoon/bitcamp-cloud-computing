@@ -8,7 +8,12 @@ $('#loginBtn').click(() => {
         'password': $('#fPassword').val(),
         'saveEmail':$('#fSaveEmail').prop('checked')
     }, (result) => {
-        console.log(result);
+        if(result.status==='success'){
+        	location.href='businesscard/index.html'
+        }else{
+        	alert('로그인 실패')
+        }
+        
     }, 'json')
     .fail(() => {
         alert('로그인 중에 오류 발생!')

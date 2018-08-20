@@ -29,8 +29,9 @@ public class AuthController {
             Member loginUser = memberService.getMember(email,password);
             
             
-            if(loginUser ==null) 
+            if(loginUser ==null) {
                 throw new Exception("로그인 실패");
+            }
            
             session.setAttribute("loginUser",loginUser);
             result.put("status","success");
