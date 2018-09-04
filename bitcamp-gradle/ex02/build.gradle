@@ -1,3 +1,8 @@
-// build.script 실행 테스트
-// => build.script.xx 파일의 내용을 이 파일에 복사하여 실행하라.
-//
+//defaultTasks =['t1']
+// project.defaultTasks() 메서드 호출 
+defaultTasks 't1'
+
+task t1 {
+    println "설정 하기 ...."
+}
+
